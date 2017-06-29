@@ -12,11 +12,12 @@ namespace WebApplication1.Models
         {
 
         }
+        
         [Key]
-        [ForeignKey("House")]
-        public int Id { set; get; }
-        public int? HouseZusatErb { set; get; }
-        public int? HouseZusatObj { set; get; }
-        public House House { set; get; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int HouseZusatId { set; get; }
+        public int? erbbaurecht { set; get; }
+        public int? objekt { set; get; }
+        public int? f_id { set; get; }
     }
 }

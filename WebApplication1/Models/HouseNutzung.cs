@@ -14,12 +14,12 @@ namespace WebApplication1.Models
 
         }
         [Key]
-        [ForeignKey("House")]
-        public int Id { set; get; }
-        public int? HouseNutzingGew { set; get; }
-        public double? HouseNutzingGesamt { set; get; }
-        public string HouseNutzingWohn { set; get; }
-
-        public House House { set; get; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int HouseNutzungId { set; get; }
+        public int? gewerbeflache { set; get; }
+        public double? gesamtewohnflache { set; get; }
+        public string wohnflache { set; get; }
+        public int? f_id { set; get; }
+       
     }
 }

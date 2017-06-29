@@ -8,6 +8,26 @@
     <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
+<table style="border: 4px solid black">
+    <tr style="border: 3px solid black">
+        <th style="border: 1px solid black">Id</th>
+        <th style="border: 1px solid black">Auth Key</th>
+        <th style="border: 1px solid black">Primary Role</th>
+        <th style="border: 1px solid black">Email</th>
+        <th style="border: 1px solid black">Password</th>
+    </tr>
+    @foreach (var item in ViewBag.Users)
+    {
+        <tr style="border: 3px solid black">
+            <td style="border: 1px solid black">@item.BenutzerId</td>
+            <td style="border: 1px solid black">@item.AuthKey</td>
+            <td style="border: 1px solid black">@item.PrimaryRole</td>
+            <td style="border: 1px solid black">@item.Email</td>
+            <td style="border: 1px solid black">@item.Password</td>
+        </tr>
+    }
+</table>
+
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>

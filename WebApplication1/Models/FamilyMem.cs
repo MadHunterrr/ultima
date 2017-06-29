@@ -32,5 +32,8 @@ namespace WebApplication1.Models
         public int? FamilyMemSex { get; set; }
         public string FamilyMemStreetName { get; set; }
         public int? FamilyMemStreetNum { get; set; }
+        public string FamilyMemEmail { set; get; }
+        public bool? FamilyMemProf { set; get; }
+        public bool? FamilyMemDoctor { set; get; }
     }
 }

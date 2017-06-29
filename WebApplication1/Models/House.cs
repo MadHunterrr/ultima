@@ -15,23 +15,21 @@ namespace WebApplication1.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { set; get; }
-        public string HouseBankverbingin { set; get; }
-        public string HouseArt { set; get; }
-        public double HouseBaujahr { set; get; }
-        public int HouseBauweiseAndere { set; get; }
-        public int HiuseBauweiseMassiv { set; get; }
-        public string HouseDacherous { set; get; }
-        public int? HouseEin { set; get; }
-        public int? HouseFer { set; get; }
-        public string HouseGrund { set; get; }
-        public string HouseNr { set; get; }
-        public string HouseOrt { set; get; }
-        public string HousePlz { set; get; }
-        public string HouseVall { set; get; }
-        public string HouseKeller { set; get; }
-        public string HouseStrebe { set; get; }
-        public HouseNutzung HouseNutzung { set; get; }
-        public HouseZusat HouseZusat { set; get; }
-        public StellPlatze StellPlatze { set; get; }
+        public string bankverbindung { set; get; }
+        public string art { set; get; }
+        public double baujahr { set; get; }
+        
+        public string dachgeschoss { set; get; }
+        public int? einliegerwohnung { set; get; }
+        public int? fertighaus { set; get; }
+        public string grundstucksgrobe { set; get; }
+        public string nr { set; get; }
+        public string ort { set; get; }
+        public string plz { set; get; }
+        public string vollgeschosse { set; get; }
+        public string keller { set; get; }
+        public string strabe { set; get; }
+        public int? f_id { set; get; }
+        
     }
 }

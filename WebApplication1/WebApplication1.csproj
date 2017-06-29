@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,12 +52,21 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.2\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -160,60 +170,48 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201705250939184_ModelContextMigration.cs" />
-    <Compile Include="Migrations\201705250939184_ModelContextMigration.Designer.cs">
-      <DependentUpon>201705250939184_ModelContextMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705250950020_Update1ModelContext.cs" />
-    <Compile Include="Migrations\201705250950020_Update1ModelContext.Designer.cs">
-      <DependentUpon>201705250950020_Update1ModelContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705250952590_Update2ModelContext.cs" />
-    <Compile Include="Migrations\201705250952590_Update2ModelContext.Designer.cs">
-      <DependentUpon>201705250952590_Update2ModelContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705250956491_Update3ModelContext.cs" />
-    <Compile Include="Migrations\201705250956491_Update3ModelContext.Designer.cs">
-      <DependentUpon>201705250956491_Update3ModelContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705250959551_Update4ModelContext.cs" />
-    <Compile Include="Migrations\201705250959551_Update4ModelContext.Designer.cs">
-      <DependentUpon>201705250959551_Update4ModelContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705251032111_Update5ModelContext.cs" />
-    <Compile Include="Migrations\201705251032111_Update5ModelContext.Designer.cs">
-      <DependentUpon>201705251032111_Update5ModelContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705251239528_Update6ModelContext.cs" />
-    <Compile Include="Migrations\201705251239528_Update6ModelContext.Designer.cs">
-      <DependentUpon>201705251239528_Update6ModelContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705251527034_Update7ModelContext.cs" />
-    <Compile Include="Migrations\201705251527034_Update7ModelContext.Designer.cs">
-      <DependentUpon>201705251527034_Update7ModelContext.cs</DependentUpon>
+    <Compile Include="Migrations\201706291600591_Epocha.cs" />
+    <Compile Include="Migrations\201706291600591_Epocha.Designer.cs">
+      <DependentUpon>201706291600591_Epocha.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Anfarra.cs" />
+    <Compile Include="Models\Anfarrb.cs" />
+    <Compile Include="Models\Annuitatendarlehen.cs" />
+    <Compile Include="Models\Benutzer.cs" />
     <Compile Include="Models\FamilyChildren.cs" />
     <Compile Include="Models\FamilyFinancialSituation.cs" />
     <Compile Include="Models\FamilyMem.cs" />
     <Compile Include="Models\FamilyUnion.cs" />
+    <Compile Include="Models\Forwarddarlehen.cs" />
     <Compile Include="Models\House.cs" />
     <Compile Include="Models\HouseNutzung.cs" />
     <Compile Include="Models\HouseZusat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Kwf.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModelContext.cs" />
+    <Compile Include="Models\Privatdarlehen.cs" />
+    <Compile Include="Models\Restchuldversicherung.cs" />
     <Compile Include="Models\StellPlatze.cs" />
+    <Compile Include="Models\VariablesDarlehen.cs" />
+    <Compile Include="Models\Zinsabsicherung.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\AntragstallerUtil.cs" />
+    <Compile Include="Utils\CreditUtil.cs" />
+    <Compile Include="Utils\ImmobileUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -274,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AccountManage\" />
     <Folder Include="Views\Rest\" />
   </ItemGroup>
   <ItemGroup>
@@ -284,29 +283,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201705250939184_ModelContextMigration.resx">
-      <DependentUpon>201705250939184_ModelContextMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705250950020_Update1ModelContext.resx">
-      <DependentUpon>201705250950020_Update1ModelContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705250952590_Update2ModelContext.resx">
-      <DependentUpon>201705250952590_Update2ModelContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705250956491_Update3ModelContext.resx">
-      <DependentUpon>201705250956491_Update3ModelContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705250959551_Update4ModelContext.resx">
-      <DependentUpon>201705250959551_Update4ModelContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705251032111_Update5ModelContext.resx">
-      <DependentUpon>201705251032111_Update5ModelContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705251239528_Update6ModelContext.resx">
-      <DependentUpon>201705251239528_Update6ModelContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705251527034_Update7ModelContext.resx">
-      <DependentUpon>201705251527034_Update7ModelContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706291600591_Epocha.resx">
+      <DependentUpon>201706291600591_Epocha.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
