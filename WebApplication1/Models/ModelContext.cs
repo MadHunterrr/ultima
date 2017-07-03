@@ -31,6 +31,6 @@ namespace WebApplication1.Models
         public DbSet<Annuitatendarlehen> Annuitatendarlehens { set; get; } 
         public DbSet<VariablesDarlehen> VariablesDarlehens { set; get; }
         public DbSet<Item> Items { set; get; }
-        public DbSet<Benutzer> Benutzers { get; set; }
+        public DbSet<Bankverbindung> Bankverbindungs { get; set; }
     }
 }

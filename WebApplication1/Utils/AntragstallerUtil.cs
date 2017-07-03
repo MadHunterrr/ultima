@@ -169,5 +169,44 @@ namespace WebApplication1.Utils
             }
             return childrens;
         }
+
+        public static List<Bankverbindung> ParseBankverbindung(JArray jBanks)
+        {
+            List<Bankverbindung> bankverbindungs = new List<Bankverbindung>();
+            foreach (JToken jBank in jBanks)
+            {
+                Bankverbindung bankverbindung = new Bankverbindung();
+
+                if (jBank["kont"] != null)
+                {
+                    bankverbindung.Kont = (int)jBank["kont"];
+                }
+                if (jBank["iban"] != null)
+                {
+                    bankverbindung.Iban = (string)jBank["iban"];
+                }
+                if (jBank["bic"] != null)
+                {
+                    bankverbindung.Bic = (string)jBank["bic"];
+                }
+                if (jBank["num"] != null)
+                {
+                    bankverbindung.Num = (string)jBank["num"];
+                }
+                if (jBank["blz"] != null)
+                {
+                    bankverbindung.Blz = (string)jBank["blz"];
+                }
+                if (jBank["cred_inst"] != null)
+                {
+                    bankverbindung.Cred_inst = (string)jBank["cred_inst"];
+                }
+
+                bankverbindungs.Add(bankverbindung);
+            }
+
+            return bankverbindungs;
+        }
+            
     }
 }

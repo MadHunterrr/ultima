@@ -5,25 +5,12 @@
                 <li class="b-header__nav-item">
                     <a ui-sref="dashboard">Übersicht</a>
                 </li>
-                <li class="b-header__nav-item b-header__nav-dropdown">
-                    <a target="_blank" href="https://www.europace2.de/baufiSmart/">Neuer BaufiSmart-Vorgang</a>
-                </li>
-                <li class="b-header__nav-item b-header__nav-dropdown">
-                    <a target="_blank" href="https://www.europace2.de/kreditsmart/?datenkontext=echtgeschaeft">Neuer
-                        KreditSmart-Vorgang</a>
-                </li>
-                <li class="b-header__nav-item">
-                    <a target="_blank" href="https://www.europace2.de/vorgangsmanagement/">Vorgangsmanagement</a>
-                </li>
             </ul>
         </nav>
         <nav class="b-header__links-nav" role="navigation">
             <ul class="b-header__nav clearfix">
                 <li class="b-header__nav-item b-header__links-search">
                     <a class="search" ng-click='toggleModal()'></a>
-                </li>
-                <li class="b-header__nav-item">
-                    <a href="#">Links</a>
                 </li>
                 <li class="b-header__nav-item">
                     <a href="#">Schließen</a>
@@ -91,15 +78,13 @@
 
 </header>
 <main class="b-main">
-    <h2 class="b-main__title">TESTUMGEBUNG</h2>
-
     <div class="container">
         <div class="b-tabs">
             <ul class="b-tabs__titles clearfix">
-                <li class="b-tabs__titles-item b-tabs__big-user" ui-sref="index"><span>ANTRAGSTELLER</span>
+                <li class="b-tabs__titles-item b-tabs__big-user" ui-sref="index({id: vm.params_id})"><span>ANTRAGSTELLER</span>
                 </li>
-                <li class="b-tabs__titles-item b-tabs__home" ui-sref="second"><span>IMMOBILIE</span></li>
-                <li class="b-tabs__titles-item b-tabs__titles-item--current b-tabs__home-bank" ui-sref="third"><span>KREDIT-DATEN</span>
+                <li class="b-tabs__titles-item b-tabs__home" ui-sref="second({id: vm.params_id})"><span>IMMOBILIE</span></li>
+                <li class="b-tabs__titles-item b-tabs__titles-item--current b-tabs__home-bank" ui-sref="third({id: vm.params_id})"><span>KREDIT-DATEN</span>
                 </li>
             </ul>
             <div class="b-tabs__container">
@@ -1037,7 +1022,7 @@
     <div class="b-footer">
         <div class="container">
             <ul class="b-footer__nav clearfix">
-                <li class="b-footer__nav-item b-footer__nav-user">Vorgang: 281883</li>
+                <li class="b-footer__nav-item b-footer__nav-user">Vorgang: {{vm.params_id}}</li>
             </ul>
         </div>
     </div>

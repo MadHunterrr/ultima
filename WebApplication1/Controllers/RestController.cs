@@ -523,6 +523,14 @@ namespace WebApplication1.Controllers
 
                         }
 
+                        JArray jBankverbindungs = (JArray)o["bankverbindungs"];
+                        if (jBankverbindungs.Count > 0)
+                        {
+                            List<Bankverbindung> bankverbindungs = AntragstallerUtil.ParseBankverbindung((JArray)o["bankverbindungs"]);
+
+                            context.Entry(bankverbindungs).State = System.Data.Entity.EntityState.Added;
+                            context.SaveChanges();
+                        }
                     }
                 }
                 //get family members from methods

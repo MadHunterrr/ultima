@@ -152,11 +152,5 @@ C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\ru\Microsoft.O
 C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\Public\Documents\repositories\ultima\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\Public\Documents\repositories\ultima\WebApplication1\obj\Debug\WebApplication1.pdb
-C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\System.Net.Http.Formatting.dll
-C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\System.Web.Http.dll
-C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\System.Web.Http.WebHost.dll
-C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\System.Net.Http.Formatting.xml
-C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\System.Web.Http.xml
-C:\Users\Public\Documents\repositories\ultima\WebApplication1\bin\System.Web.Http.WebHost.xml
-C:\Users\Public\Documents\repositories\ultima\WebApplication1\obj\Debug\WebApplication1.Migrations.Epocha.resources
+C:\Users\Public\Documents\repositories\ultima\WebApplication1\obj\Debug\WebApplication1.Migrations.Test.resources
 C:\Users\Public\Documents\repositories\ultima\WebApplication1\obj\Debug\WebApplication1.csproj.GenerateResource.Cache

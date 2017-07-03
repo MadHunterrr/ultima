@@ -75,7 +75,7 @@
                             return $.ajax({
                                 type: "GET",
                                 traditional: true,
-                                url: 'http://itls-hh.eu/Rest/GetAllMembers'
+                                url: 'http://localhost:28151/Rest/GetAllMembers'
                             });
                         }
                     }
@@ -133,7 +133,7 @@
     request.inject = ['$http', '$q'];
     function request($http, $q) {
 
-        var urlServer = 'http://itls-hh.eu/Rest/';
+        var urlServer = 'http://localhost:28151/Rest/';
 
         return request;
 
@@ -217,6 +217,8 @@
     IndexCtrl.$inject = ['$scope', '$http', '$stateParams', 'usersSearch', 'mem_index', '$state'];
     function IndexCtrl($scope, $http, $stateParams, usersSearch, mem_index, $state) {
         var vm = this;
+
+        vm.params_id = $stateParams.id;
 
         vm.menu = [
             {
@@ -437,9 +439,21 @@
         vm.kinderStatus = kinderStatus;
         vm.usersSearch = usersSearch;
         vm.users = usersSearch.user;
+        vm.addBank = addBank;
+        vm.deleteBank = deleteBank;
 
             if(typeof mem_index !=='undefined'){
                 vm.data = mem_index.data;
+                vm.data.bankverbindung = [
+                    {
+                        kont: '',
+                        iban: '',
+                        bic: '',
+                        blz: '',
+                        cred_inst: '',
+                    }
+                ];
+                console.log(vm.data);
             }else{
              vm.data=   {
                 antragsteller1: {},
@@ -448,8 +462,7 @@
                 menuTwoBank: [],
                 childrens: []
             }; 
-            }
-       
+        }
 
         setTimeout(function () {
             $scope.$digest();
@@ -459,6 +472,21 @@
         $scope.toggleModal = function () {
             $scope.modalShown = !$scope.modalShown;
         };
+
+        function addBank() {
+            vm.data.bankverbindung.push({
+                kont: '',
+                iban: '',
+                bic: '',
+                blz: '',
+                cred_inst: '',
+            });
+            console.log(vm.data);
+        }
+
+        function deleteBank(index) {
+            vm.data.bankverbindung.splice(index, 1)
+        }
 
         function addKinder() {
             vm.kinder.push({
@@ -545,7 +573,7 @@
             // $http({
             //     type: "POST",
             //     traditional: true,
-            //     url: 'http://itls-hh.eu/backend/WebApplication1/Rest/Antragsteller',
+            //     url: 'http://localhost:28151/backend/WebApplication1/Rest/Antragsteller',
             //     data: {'data': vm.data}
             // }).then(function successCallback(response) {
             //
@@ -561,7 +589,7 @@
                 $.ajax({
                     type: "POST",
                     traditional: true,
-                    url: 'http://itls-hh.eu/Rest/AntragstellerUpdate',
+                    url: 'http://localhost:28151/Rest/AntragstellerUpdate',
                     data: {'data': data}
                 })
             } else {
@@ -569,7 +597,7 @@
                 $.ajax({
                     type: "POST",
                     traditional: true,
-                    url: 'http://itls-hh.eu/Rest/Antragsteller',
+                    url: 'http://localhost:28151/Rest/Antragsteller',
                     data: {'data': data}
                 }).then(function (res) {
                     $state.go('index', {id: res});
@@ -605,6 +633,7 @@
         var vm = this;
         var post_url = '';
 
+        vm.params_id = $stateParams.id;
         vm.submit = submit;
         vm.refresh = refresh;
         vm.addStellplatze = addStellplatze;
@@ -778,8 +807,8 @@
             vm.bank.id = $stateParams.id || id;
 
             mem_second.data.status ?
-                post_url = 'http://itls-hh.eu/Rest/ImmobileUpdate' :
-                post_url = 'http://itls-hh.eu/Rest/Immobile';
+                post_url = 'http://localhost:28151/Rest/ImmobileUpdate' :
+                post_url = 'http://localhost:28151/Rest/Immobile';
 
             $.ajax({
                 type: "POST",
@@ -832,12 +861,12 @@
         }
     }
 
-    ThirdCtrl.$inject = ['$scope', 'usersSearch', '$sessionStorage', 'mem_third'];
-    function ThirdCtrl($scope, usersSearch, $sessionStorage, mem_third) {
+    ThirdCtrl.$inject = ['$scope', 'usersSearch', '$sessionStorage', 'mem_third', '$stateParams'];
+    function ThirdCtrl($scope, usersSearch, $sessionStorage, mem_third, $stateParams) {
         var vm = this;
 
         
-
+        vm.params_id = $stateParams.id;
         vm.addA = addA;
         vm.addB = addB;
         vm.submit = submit;
@@ -941,9 +970,9 @@
 
             var post_url = '';
             if(mem_third && mem_third.data && mem_third.data.status) {
-                post_url = 'http://itls-hh.eu/Rest/KreditUpdate';
+                post_url = 'http://localhost:28151/Rest/KreditUpdate';
             } else {
-                post_url = 'http://itls-hh.eu/Rest/Kredit';
+                post_url = 'http://localhost:28151/Rest/Kredit';
             }
 
             $.ajax({

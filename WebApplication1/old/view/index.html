@@ -5,25 +5,12 @@
                 <li class="b-header__nav-item">
                     <a ui-sref="dashboard">Übersicht</a>
                 </li>
-                <li class="b-header__nav-item b-header__nav-dropdown">
-                    <a href="https://www.europace2.de/baufiSmart/">Neuer BaufiSmart-Vorgang</a>
-                </li>
-                <li class="b-header__nav-item b-header__nav-dropdown">
-                    <a href="https://www.europace2.de/kreditsmart/?datenkontext=echtgeschaeft">Neuer
-                        KreditSmart-Vorgang</a>
-                </li>
-                <li class="b-header__nav-item">
-                    <a href="https://www.europace2.de/vorgangsmanagement/">Vorgangsmanagement</a>
-                </li>
             </ul>
         </nav>
         <nav class="b-header__links-nav" role="navigation">
             <ul class="b-header__nav clearfix">
                 <li class="b-header__nav-item b-header__links-search">
                     <a class="search" ng-click='toggleModal()'></a>
-                </li>
-                <li class="b-header__nav-item">
-                    <a href="#">Links</a>
                 </li>
                 <li class="b-header__nav-item">
                     <a href="#">Schließen</a>
@@ -90,14 +77,13 @@
 
 </header>
 <main class="b-main">
-    <h2 class="b-main__title">TESTUMGEBUNG</h2>
     <div class="container">
         <div class="b-tabs">
             <ul class="b-tabs__titles clearfix">
-                <li class="b-tabs__titles-item b-tabs__titles-item--current b-tabs__big-user" ui-sref="index"><span>ANTRAGSTELLER</span>
+                <li class="b-tabs__titles-item b-tabs__titles-item--current b-tabs__big-user" ui-sref="index({id: vm.params_id})"><span>ANTRAGSTELLER</span>
                 </li>
-                <li class="b-tabs__titles-item b-tabs__home" ui-sref="second"><span>IMMOBILIE</span></li>
-                <li class="b-tabs__titles-item b-tabs__home-bank" ui-sref="third"><span>VORHABEN</span></li>
+                <li class="b-tabs__titles-item b-tabs__home" ui-sref="second({id: vm.params_id})"><span>IMMOBILIE</span></li>
+                <li class="b-tabs__titles-item b-tabs__home-bank" ui-sref="third({id: vm.params_id})"><span>VORHABEN</span></li>
             </ul>
             <div class="b-tabs__container">
                 <div class="b-form__title-dark b-form__title">Persönliche Daten</div>
@@ -777,10 +763,15 @@
                                 ng-repeat="item in vm.menu"
                                 ng-class="vm.itemIsFilled(item) ? 'terminated-items' : ''">
                                 <a ng-click="vm.addItem(item)">
-                                    <div style="width: 14px; height: 13px; display: inline-block; position: relative;" ng-hide="!vm.itemIsFilled(item)"></div>
+                                    <!--<div style="width: 14px; height: 13px; display: inline-block; position: relative;" ng-show="vm.itemIsFilled(item)"></div>-->
                                     <img class="btn btn__plus btn--light"
                                          ng-show="!vm.itemIsFilled(item)"
                                          src="content/images/icons/plus.png"
+                                         alt="plus_btn">
+                                    <img class="btn btn__plus btn--light"
+                                         ng-show="vm.itemIsFilled(item)"
+                                         src="content/images/icons/plus.png"
+                                         style="visibility: hidden;"
                                          alt="plus_btn">
                                     {{item.name}}
                                 </a>
@@ -791,9 +782,15 @@
                                 ng-repeat="item in vm.menu2"
                                 ng-class="vm.itemIsFilled(item) ? 'terminated-items' : ''">
                                 <a ng-click="vm.addItem(item)">
+                                    <!--<div style="width: 14px; height: 13px; display: inline-block; position: relative;" ng-show="vm.itemIsFilled(item)"></div>-->
                                     <img class="btn btn__plus btn--light"
                                          ng-show="!vm.itemIsFilled(item)"
                                          src="content/images/icons/plus.png"
+                                         alt="plus_btn">
+                                    <img class="btn btn__plus btn--light"
+                                         ng-show="vm.itemIsFilled(item)"
+                                         src="content/images/icons/plus.png"
+                                         style="visibility: hidden;"
                                          alt="plus_btn">
                                     {{item.name}}
                                 </a>
@@ -1360,18 +1357,22 @@
                     <h4 class="b-form__sub-header">Weitere Immobilien: <span>Sind weitere Immobilien vorhanden?</span>
                     </h4>
                     <div class="b-form__title-btn b-form__title">
-                        <div class="btn btn--light">Keine Kinder vorhanden</div>
+                        <div class="btn btn--light">Keine immobilien vorhanden</div>
                         <div class="btn btn--light">Erfassen</div>
                     </div>
                 </div>
 
                 <div class="second_form clearfix">
-                    <h4 class="b-form__sub-header">Bankverbindung</h4>
-                    <div class="b-form__block b-banking clearfix">
+                    <h4 class="b-form__sub-header bankverbindung">
+                        <img class="btn btn__plus btn--light"
+                            src="content/images/icons/plus.png"
+                            ng-click="vm.addBank()"
+                            alt="plus_btn"> Bankverbindung</h4>
+                    <div class="b-form__block b-banking clearfix" ng-repeat="bank in vm.data.bankverbindung track by $index">
                         <div class="b-banking__item b-banking__kont">
                             <span class="b-form__input">
                                 <label for="kont">Kontoinhaber</label>
-                                <select id="kont" ng-init="vm.data.kont = '-1'" ng-model="vm.data.kont">
+                                <select id="kont" ng-init="bank.kont = '-1'" ng-model="bank.kont">
                                     <option value="-1">Bitte wählen Sie ...</option>
                                     <option value="1">Antragsteller 1</option>
                                     <option value="2">Antragsteller 2</option>
@@ -1382,33 +1383,36 @@
                         <div class="b-banking__item b-banking__iban">
                             <span class="b-form__input">
                                 <label for="iban">IBAN</label>
-                                <input id="iban" type="text" ng-model="vm.data.iban">
+                                <input id="iban" type="text" ng-model="bank.iban">
                             </span>
                         </div>
                         <div class="b-banking__item b-banking__bic">
                             <span class="b-form__input">
                                 <label for="bic">BIC</label>
-                                <input id="bic" type="text" ng-model="vm.data.bic">
+                                <input id="bic" type="text" ng-model="bank.bic">
                             </span>
                         </div>
                         <div class="b-banking__item b-banking__num">
                             <span class="b-form__input">
                                 <label for="num">Konto-Nr.</label>
-                                <input id="num" type="text" ng-model="vm.data.num">
+                                <input id="num" type="text" ng-model="bank.num">
                             </span>
                         </div>
                         <div class="b-banking__item b-banking__blz">
                             <span class="b-form__input">
                                 <label for="blz">BLZ</label>
-                                <input id="blz" type="text" ng-model="vm.data.blz">
+                                <input id="blz" type="text" ng-model="bank.blz">
                             </span>
                         </div>
                         <div class="b-banking__item b-banking__kredit">
                             <span class="b-form__input">
                                 <label for="cred_inst">Kreditinstitut</label>
-                                <input id="cred_inst" type="text" ng-model="vm.data.cred_inst">
+                                <input id="cred_inst" type="text" ng-model="bank.cred_inst">
                             </span>
                         </div>
+                        <img src="content/images/icons/trash_basket.png"
+                            class="btn btn__trash btn--light bank-delete"
+                            ng-click="vm.deleteBank($index)">
                     </div>
                 </div>
 
@@ -1431,7 +1435,7 @@
     <div class="b-footer">
         <div class="container">
             <ul class="b-footer__nav clearfix">
-                <li class="b-footer__nav-item b-footer__nav-user">Vorgang: 281883</li>
+                <li class="b-footer__nav-item b-footer__nav-user">Vorgang: {{vm.params_id}}</li>
             </ul>
         </div>
     </div>

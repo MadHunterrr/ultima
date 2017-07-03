@@ -1,6 +1,5 @@
 C:\Users\Public\Documents\repositories\ultima\Test\bin\Debug\Test.exe.config
 C:\Users\Public\Documents\repositories\ultima\Test\bin\Debug\Test.exe
 C:\Users\Public\Documents\repositories\ultima\Test\bin\Debug\Test.pdb
-C:\Users\Public\Documents\repositories\ultima\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
 C:\Users\Public\Documents\repositories\ultima\Test\obj\Debug\Test.exe
 C:\Users\Public\Documents\repositories\ultima\Test\obj\Debug\Test.pdb
