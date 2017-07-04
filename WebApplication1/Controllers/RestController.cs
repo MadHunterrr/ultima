@@ -62,7 +62,7 @@ namespace WebApplication1.Controllers
                     context.SaveChanges();
                 }
             }
-            
+
             return Json("Added", JsonRequestBehavior.AllowGet);
         }
 
@@ -82,7 +82,7 @@ namespace WebApplication1.Controllers
 
                 if (fu != null)
                 {
-                   
+
 
                     List<Anfarra> anfa = CreditUtil.ParseAnfarras((JArray)o["Anfarra"]);//GetListAnfarra((JArray)o["Anfarra"]);
                     List<Anfarrb> anfb = CreditUtil.ParseAnfarrbs((JArray)o["Anfarra"]);//GetListAnfarrb((JArray)o["Anfarrb"]);
@@ -92,8 +92,8 @@ namespace WebApplication1.Controllers
                     List<Forwarddarlehen> forws = CreditUtil.ParseForwarddarlehens((JArray)o["forwarddarlehen"]);
                     List<VariablesDarlehen> vars = CreditUtil.ParseVariables((JArray)o["variablesDarlehen"]);
                     List<Annuitatendarlehen> ann = CreditUtil.ParseAnnuitatendars((JArray)o["annuitatendarlehen"]);
-                    
-                    
+
+
                     CreditUtil.SetFuAnfarras(anfa, fu);
                     CreditUtil.SetFuAnfarrbs(anfb, fu);
                     CreditUtil.SetFuKwfs(kwfs, fu);
@@ -163,7 +163,7 @@ namespace WebApplication1.Controllers
                         {
                             context.Entry(a).State = System.Data.Entity.EntityState.Added;
                         }
-                        
+
                     }
 
                     foreach (Zinsabsicherung z in zins)
@@ -230,7 +230,7 @@ namespace WebApplication1.Controllers
                     CreditUtil.SetFuVariables(fu.VariableDarlehens, null);
 
                     if (fu.Anfarrbs.Count == 0 &&
-                        fu.Anfarras.Count == 0 && 
+                        fu.Anfarras.Count == 0 &&
                         fu.Kwfs.Count == 0 &&
                         fu.Privatdarlehens.Count == 0 &&
                         fu.Zinsabsicherungs.Count == 0 &&
@@ -256,159 +256,159 @@ namespace WebApplication1.Controllers
             }
 
         }
-       /* private List<Anfarra> GetListAnfarra(JArray arr)
-        {
-            List<Anfarra> annfarrabs = new List<Anfarra>();
-            foreach (JToken anfarrab in arr)
-            {
-                Anfarra b = ParseAnfarra(anfarrab);
-                annfarrabs.Add(b);
+        /* private List<Anfarra> GetListAnfarra(JArray arr)
+         {
+             List<Anfarra> annfarrabs = new List<Anfarra>();
+             foreach (JToken anfarrab in arr)
+             {
+                 Anfarra b = ParseAnfarra(anfarrab);
+                 annfarrabs.Add(b);
 
-            }
-            return annfarrabs;
-        }
-        private List<Anfarrb> GetListAnfarrb(JArray arr)
-        {
-            List<Anfarrb> annfarrabs = new List<Anfarrb>();
-            foreach (JToken anfarrab in arr)
-            {
-                Anfarrb b = ParseAnfarrb(anfarrab);
-                annfarrabs.Add(b);
+             }
+             return annfarrabs;
+         }
+         private List<Anfarrb> GetListAnfarrb(JArray arr)
+         {
+             List<Anfarrb> annfarrabs = new List<Anfarrb>();
+             foreach (JToken anfarrab in arr)
+             {
+                 Anfarrb b = ParseAnfarrb(anfarrab);
+                 annfarrabs.Add(b);
 
-            }
-            return annfarrabs;
-        }
-        private Anfarra ParseAnfarra(JToken token)
-        {
-            if (token != null)
-            {
-                bool tmp;
-                Anfarra aa = new Anfarra();
-                if (token["AnfarraId"] != null)
-                {
-                    int id;
-                    if (int.TryParse((string)token["AnfarraId"], out id))
-                    {
-                        aa.AnfarraId = id;
-                    }
-                }
-                if (token["abgelehnt"] != null)
-                {
-                    if (bool.TryParse((string)token["abgelehnt"], out tmp))
-                    {
-                        aa.abgelehnt = tmp;
-                    }
-                }
-                if (token["abgerechnet"] != null)
-                {
-                    if (bool.TryParse((string)token["abgerechnet"], out tmp))
-                    {
-                        aa.abgerechnet = tmp;
-                    }
-                }
+             }
+             return annfarrabs;
+         }
+         private Anfarra ParseAnfarra(JToken token)
+         {
+             if (token != null)
+             {
+                 bool tmp;
+                 Anfarra aa = new Anfarra();
+                 if (token["AnfarraId"] != null)
+                 {
+                     int id;
+                     if (int.TryParse((string)token["AnfarraId"], out id))
+                     {
+                         aa.AnfarraId = id;
+                     }
+                 }
+                 if (token["abgelehnt"] != null)
+                 {
+                     if (bool.TryParse((string)token["abgelehnt"], out tmp))
+                     {
+                         aa.abgelehnt = tmp;
+                     }
+                 }
+                 if (token["abgerechnet"] != null)
+                 {
+                     if (bool.TryParse((string)token["abgerechnet"], out tmp))
+                     {
+                         aa.abgerechnet = tmp;
+                     }
+                 }
 
-                if (token["storno"] != null)
-                {
-                    if (bool.TryParse((string)token["storno"], out tmp))
-                    {
-                        aa.storno = tmp;
-                    }
-                }
-                if (token["anfragen"] != null)
-                {
-                    aa.anfragen = (string)token["anfragen"];
-                }
-                if (token["bearbeiter"] != null)
-                {
-                    aa.bearbeiter = (string)token["bearbeiter"];
-                }
+                 if (token["storno"] != null)
+                 {
+                     if (bool.TryParse((string)token["storno"], out tmp))
+                     {
+                         aa.storno = tmp;
+                     }
+                 }
+                 if (token["anfragen"] != null)
+                 {
+                     aa.anfragen = (string)token["anfragen"];
+                 }
+                 if (token["bearbeiter"] != null)
+                 {
+                     aa.bearbeiter = (string)token["bearbeiter"];
+                 }
 
-                if (token["erstelltam"] != null)
-                {
-                    aa.erstelltam = (string)token["erstelltam"];
-                }
+                 if (token["erstelltam"] != null)
+                 {
+                     aa.erstelltam = (string)token["erstelltam"];
+                 }
 
-                if (token["field"] != null)
-                {
-                    aa.field = (string)token["field"];
-                }
+                 if (token["field"] != null)
+                 {
+                     aa.field = (string)token["field"];
+                 }
 
-                if (token["gedruckt"] != null)
-                {
-                    aa.gedruckt = (string)token["gedruckt"];
-                }
+                 if (token["gedruckt"] != null)
+                 {
+                     aa.gedruckt = (string)token["gedruckt"];
+                 }
 
-                if (token["status"] != null)
-                {
-                    aa.status = (string)token["status"];
-                }
+                 if (token["status"] != null)
+                 {
+                     aa.status = (string)token["status"];
+                 }
 
-                if (token["zweck"] != null)
-                {
-                    aa.anfragen = (string)token["zweck"];
-                }
-
-
+                 if (token["zweck"] != null)
+                 {
+                     aa.anfragen = (string)token["zweck"];
+                 }
 
 
 
-                return aa;
-            }
-            return null;
-        }
-        private Anfarrb ParseAnfarrb(JToken token)
-        {
-            if (token != null)
-            {
-                Anfarrb ab = new Anfarrb();
-                if (token["AnfarrbId"] != null)
-                {
-                    int id;
-                    if (int.TryParse((string)token["AnfarrbId"], out id))
-                    {
-                        ab.AnfarrbId = id;
-                    }
-                }
-                if (token["anfrageabgelehnt"] != null)
-                {
-                    ab.anfrageabgelehnt = (string)token["anfrageabgelehnt"];
-                }
-                if (token["auftragseingang"] != null)
-                {
-                    ab.auftragseingang = (string)token["auftragseingang"];
-                }
-                if (token["betrag"] != null)
-                {
-                    ab.betrag = (string)token["betrag"];
-                }
-                if (token["fieldFour"] != null)
-                {
-                    ab.fieldFour = (string)token["fieldFour"];
-                }
-                if (token["fieldOne"] != null)
-                {
-                    ab.fieldOne = (string)token["fieldOne"];
-                }
-                if (token["fieldThree"] != null)
-                {
-                    ab.fieldThree = (string)token["fieldThree"];
-                }
-                if (token["fieldTwo"] != null)
-                {
-                    ab.fieldTwo = (string)token["fieldTwo"];
-                }
-                if (token["reason"] != null)
-                {
-                    ab.reason = (string)token["reason"];
-                }
-                if (token["wiedervorlage"] != null)
-                {
-                    ab.wiedervorlage = (string)token["wiedervorlage"];
-                }
-                return ab;
-            }
-            return null;
-        }*/
+
+
+                 return aa;
+             }
+             return null;
+         }
+         private Anfarrb ParseAnfarrb(JToken token)
+         {
+             if (token != null)
+             {
+                 Anfarrb ab = new Anfarrb();
+                 if (token["AnfarrbId"] != null)
+                 {
+                     int id;
+                     if (int.TryParse((string)token["AnfarrbId"], out id))
+                     {
+                         ab.AnfarrbId = id;
+                     }
+                 }
+                 if (token["anfrageabgelehnt"] != null)
+                 {
+                     ab.anfrageabgelehnt = (string)token["anfrageabgelehnt"];
+                 }
+                 if (token["auftragseingang"] != null)
+                 {
+                     ab.auftragseingang = (string)token["auftragseingang"];
+                 }
+                 if (token["betrag"] != null)
+                 {
+                     ab.betrag = (string)token["betrag"];
+                 }
+                 if (token["fieldFour"] != null)
+                 {
+                     ab.fieldFour = (string)token["fieldFour"];
+                 }
+                 if (token["fieldOne"] != null)
+                 {
+                     ab.fieldOne = (string)token["fieldOne"];
+                 }
+                 if (token["fieldThree"] != null)
+                 {
+                     ab.fieldThree = (string)token["fieldThree"];
+                 }
+                 if (token["fieldTwo"] != null)
+                 {
+                     ab.fieldTwo = (string)token["fieldTwo"];
+                 }
+                 if (token["reason"] != null)
+                 {
+                     ab.reason = (string)token["reason"];
+                 }
+                 if (token["wiedervorlage"] != null)
+                 {
+                     ab.wiedervorlage = (string)token["wiedervorlage"];
+                 }
+                 return ab;
+             }
+             return null;
+         }*/
         /// <summary>
         /// action for first page
         /// </summary>
@@ -523,13 +523,16 @@ namespace WebApplication1.Controllers
 
                         }
 
-                        JArray jBankverbindungs = (JArray)o["bankverbindungs"];
+                        JArray jBankverbindungs = (JArray)o["bankverbindung"];
                         if (jBankverbindungs.Count > 0)
                         {
-                            List<Bankverbindung> bankverbindungs = AntragstallerUtil.ParseBankverbindung((JArray)o["bankverbindungs"]);
+                            List<Bankverbindung> bankverbindungs = AntragstallerUtil.ParseBankverbindung((JArray)o["bankverbindung"]);
 
-                            context.Entry(bankverbindungs).State = System.Data.Entity.EntityState.Added;
-                            context.SaveChanges();
+                            foreach (var item in bankverbindungs)
+                            {
+                                context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                                context.SaveChanges();
+                            }
                         }
                     }
                 }

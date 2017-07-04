@@ -85,7 +85,7 @@ namespace WebApplication1.Utils
 
                 if (token["famili"] != null)
                 {
-                    if (int.TryParse((string)token["family"], out tmp))
+                    if (int.TryParse((string)token["famili"], out tmp))
                     {
                         familyMember.FamilyMemFamily = tmp;
                     }
