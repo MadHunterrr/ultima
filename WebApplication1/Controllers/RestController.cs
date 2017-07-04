@@ -426,19 +426,20 @@ namespace WebApplication1.Controllers
 
             if (firstMember != null && secondMember != null)
             {
-                //adding people to DB
-                context.FamilyMems.Add(firstMember);
-                context.FamilyMems.Add(secondMember);
-
-                if (firstMember.FamilyAddress == false)
+                //copying from antragsteller1 to antragsteller2 adress information
+                if (secondMember.FamilyAddress == false)
                 {
                     secondMember.FamilyMemStreetName = firstMember.FamilyMemStreetName;
                     secondMember.FamilyMemStreetNum = firstMember.FamilyMemStreetNum;
                     secondMember.FamilyMemPlz = firstMember.FamilyMemPlz;
                     secondMember.FamilyMemOrt = firstMember.FamilyMemOrt;
                     secondMember.FamilyMemSeit = firstMember.FamilyMemSeit;
-
+                    secondMember.FamilyAddress = true;
                 }
+
+                //adding people to DB
+                context.FamilyMems.Add(firstMember);
+                context.FamilyMems.Add(secondMember);
 
                 //add banking hostory for family
                 FamilyFinancialSituation financialSituation = AntragstallerUtil.ParseFamilyFinancialSituation(o);//getFamilySituations(o);
@@ -463,8 +464,6 @@ namespace WebApplication1.Controllers
                         ch.FamilyUnion = union;
                     }
                     context.FamilyChildrens.AddRange(childrens);
-
-
                 }
                 context.SaveChanges();
                 return Json(union.FirstFamilyMember, JsonRequestBehavior.AllowGet);
@@ -1080,6 +1079,12 @@ namespace WebApplication1.Controllers
                         second_name = f2.FamilyMemSecondName,
                         sex = f2.FamilyMemSex,
                         prof = f2.FamilyMemProf,
+                        show_address = f2.FamilyAddress,
+                        ort = f2.FamilyMemOrt,
+                        plz = f2.FamilyMemPlz,
+                        seit = f2.FamilyMemSeit,
+                        street_name = f2.FamilyMemStreetName,
+                        street_numb = f2.FamilyMemStreetNum
                     },
 
                     childrens = chilsds,

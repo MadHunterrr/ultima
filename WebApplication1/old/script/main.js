@@ -375,6 +375,8 @@
             {}
         ];
 
+        vm.sortedItems = [];
+
         if (mem_index && mem_index.data) {
             if (mem_index.data.menuBank) {
                 var tableName = 'FamilyFinancialSituation';
@@ -389,7 +391,7 @@
                     if (mem_index.data.menuBank.hasOwnProperty(key)) {
                         bankData = {};
                         bankName = key.replace(tableName, '');
-                        // console.log(mem_index.data.menuBank[key]);
+                        console.log(mem_index.data.menuBank[key]);
                         bankData[bankName] = eval(mem_index.data.menuBank[key]);
                         if ((bankIndex = vm.menuBankIdList2.indexOf(bankName)) >= 0) {
                             mem_index.data.menuTwoBank.push(bankData);
@@ -455,9 +457,11 @@
                 ];
                 console.log(vm.data);
             }else{
-             vm.data=   {
+             vm.data =   {
                 antragsteller1: {},
-                antragsteller2: {},
+                antragsteller2: {
+                    show_address: false
+                },
                 menuOneBank: [],
                 menuTwoBank: [],
                 childrens: []
@@ -480,6 +484,7 @@
                 bic: '',
                 blz: '',
                 cred_inst: '',
+                num: '',
             });
             console.log(vm.data);
         }
@@ -497,9 +502,9 @@
             })
         }
 
-        function addItem(data) {
+        function addItem(data, index) {
             if (!itemIsFilled(data)) {
-                console.log(data);
+                vm.sortedItems.push({ item: data.items.legth+1, index });
                 data.items.push({});
             }
         }
@@ -727,44 +732,45 @@
         vm.pushedItems = [];
         if(typeof mem_second !='undefined'){
            vm.bank = mem_second.data; 
+        } else {
+            vm.bank = {
+                basisangaben: {
+                    bankverbindung: '',
+                    strabe: '',
+                    nr: '',
+                    plz: '',
+                    ort: '',
+                    art: '',
+                    einliegerwohnung: 2,
+                    vollgeschosse: '',
+                    fertighaus: 2,
+                    dachgeschoss: '',
+                    grundstucksgrobe: '',
+                    baujahr: '',
+                    bauweise: {
+                        massiv: 2,
+                        andere: 2
+                    },
+                    keller: ''
+                },
+                nutzung: {
+                    gesamtewohnflache: '',
+                    wohnflache: {
+                        eigengenutzt: 2,
+                        vermietet: 2,
+                        beides: 2
+                    },
+                    gewerbeflache: 2
+
+                },
+                zusatzliche: {
+                    erbbaurecht: 2,
+                    objekt: 2
+                },
+                stellplatze: []
+            }
         }
 
-        vm.bank = {
-            basisangaben: {
-                bankverbindung: '',
-                strabe: '',
-                nr: '',
-                plz: '',
-                ort: '',
-                art: '',
-                einliegerwohnung: 2,
-                vollgeschosse: '',
-                fertighaus: 2,
-                dachgeschoss: '',
-                grundstucksgrobe: '',
-                baujahr: '',
-                bauweise: {
-                    massiv: 2,
-                    andere: 2
-                },
-                keller: ''
-            },
-            nutzung: {
-                gesamtewohnflache: '',
-                wohnflache: {
-                    eigengenutzt: 2,
-                    vermietet: 2,
-                    beides: 2
-                },
-                gewerbeflache: 2
-
-            },
-            zusatzliche: {
-                erbbaurecht: 2,
-                objekt: 2
-            },
-            stellplatze: []
-        }
 
         if(vm.bank.stellplatze == null) {
             vm.bank.stellplatze = [];
@@ -974,6 +980,8 @@
             } else {
                 post_url = 'http://localhost:28151/Rest/Kredit';
             }
+
+            console.log(vm.data);
 
             $.ajax({
                 type: "POST",

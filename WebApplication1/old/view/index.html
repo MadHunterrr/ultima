@@ -21,7 +21,7 @@
             </ul>
         </nav>
         <div class="b-header__logo clearfix">
-            <a href="/" class="b-header__logo-link">
+            <a ui-sref="dashboard" class="b-header__logo-link">
                 <img class="b-header__logo-image" src="content/images/logo.png" alt="Ultima">
             </a>
         </div>
@@ -473,8 +473,40 @@
                                 <div class="b-form__group b-form__group--same-height">
                             <span class="b-form__input">
                                 <label>&nbsp;</label>
-                                <div class="btn btn--light" disabled="disabled">Abweichende Anschrift erfassen</div>
+                                <div class="btn btn--light" >Abweichende Anschrift erfassen</div>
                             </span>
+                                <div class="b-form__group b-form__group--same-height" style="border-bottom: none;">
+                                    <div class="b-form__half-col b-form__half-col--first">
+                                <span class="b-form__address clearfix">
+                                    <span class="b-form__input b-form__address-long">
+                                        <label for="street_name">Straße</label>
+                                        <input id="street_name" type="text"
+                                               ng-model="vm.data.antragsteller2.street_name">
+                                    </span>
+                                    <span class="b-form__input b-form__address-short">
+                                        <label for="street_numb">Nr.</label>
+                                        <input id="street_numb" type="text"
+                                               ng-model="vm.data.antragsteller2.street_numb">
+                                    </span>
+                                </span>
+                                        <span class="b-form__input">
+                                    <label for="seit">Wohnhaft seit</label>
+                                    <input id="seit" type="text" ng-model="vm.data.antragsteller2.seit">
+                                </span>
+                                    </div>
+                                    <div class="b-form__half-col b-form__half-col--last">
+                                <span class="b-form__address clearfix">
+                                    <span class="b-form__input b-form__address-short">
+                                        <label for="plz">PLZ</label>
+                                        <input id="plz" type="text" ng-model="vm.data.antragsteller2.plz">
+                                    </span>
+                                    <span class="b-form__input b-form__address-long">
+                                        <label for="ort">Ort</label>
+                                        <input id="ort" type="text" ng-model="vm.data.antragsteller2.ort">
+                                    </span>
+                                </span>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="b-form__group">
                                     <div class="b-form__half-col b-form__half-col--first">
@@ -728,7 +760,7 @@
                                     <label for="ja2">Ja</label>
                                 </span>
                                 <span class="b-form__radio">
-                                    <input ng-model="item.kindergeld" value="0" id="nein" type="radio">
+                                    <input ng-model="item.kindergeid" value="0" id="nein" type="radio">
                                     <label for="nein">Nein</label>
                                 </span>
                             </div>
@@ -760,9 +792,9 @@
                     <div class="b-form__list-view clearfix">
                         <ul class="b-form__half-col">
                             <li class="b-form__list-view-item"
-                                ng-repeat="item in vm.menu"
+                                ng-repeat="item in vm.menu track by $index"
                                 ng-class="vm.itemIsFilled(item) ? 'terminated-items' : ''">
-                                <a ng-click="vm.addItem(item)">
+                                <a ng-click="vm.addItem(item, $index)">
                                     <!--<div style="width: 14px; height: 13px; display: inline-block; position: relative;" ng-show="vm.itemIsFilled(item)"></div>-->
                                     <img class="btn btn__plus btn--light"
                                          ng-show="!vm.itemIsFilled(item)"
@@ -838,7 +870,6 @@
                                         <label for="first_name">Angesparter Betrag</label>
                                         <input id="first_name" type="text" ng-model="item.angesparter_betrag">
                                     </span>
-                                        <a class="b-buy__bet-info" href="#">Details erfassen</a>
                                     </div>
                                     <div class="b-buy__item b-buy__begin">
                                     <span class="b-form__input b-form__euro">
@@ -999,7 +1030,6 @@
                                         <label for="first_name">Rückkaufswert</label>
                                         <input id="first_name" type="text" ng-model="item.ruckkaufswert">
                                     </span>
-                                        <a class="b-buy__bet-info" href="#">Details erfassen</a>
                                     </div>
                                     <div class="b-buy__item b-buy__begin">
                                     <span class="b-form__input b-form__euro">
@@ -1358,7 +1388,6 @@
                     </h4>
                     <div class="b-form__title-btn b-form__title">
                         <div class="btn btn--light">Keine immobilien vorhanden</div>
-                        <div class="btn btn--light">Erfassen</div>
                     </div>
                 </div>
 
