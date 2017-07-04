@@ -23,5 +23,6 @@ namespace WebApplication1.Models
         public string Num { get; set; }
         public string Blz { get; set; }
         public string Cred_inst { get; set; }
+        public virtual FamilyUnion FamilyUnion { set; get; }
     }
 }

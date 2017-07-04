@@ -108,6 +108,14 @@ namespace WebApplication1.Utils
                         familyMember.FamilyMemNetto = tmp;
                     }
                 }
+                if (token["show_address"] != null)
+                {
+                    bool sa;
+                    if (bool.TryParse((string)token["show_address"], out sa))
+                    {
+                        familyMember.FamilyAddress = sa;
+                    }
+                }
                 return familyMember;
             }
             return null;

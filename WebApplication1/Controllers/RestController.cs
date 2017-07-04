@@ -7,7 +7,7 @@ using System.Web.ModelBinding;
 using Newtonsoft.Json.Linq;
 using WebApplication1.Models;
 using WebApplication1.Utils;
-
+using System.Collections;
 
 namespace WebApplication1.Controllers
 {
@@ -424,13 +424,21 @@ namespace WebApplication1.Controllers
             FamilyMem firstMember = AntragstallerUtil.ParseFamilyMem(o["antragsteller1"]);//getFamilyMemFromJson(o["antragsteller1"]);
             FamilyMem secondMember = AntragstallerUtil.ParseFamilyMem(o["antragsteller2"]);//getFamilyMemFromJson(o["antragsteller2"]);
 
-
             if (firstMember != null && secondMember != null)
             {
                 //adding people to DB
                 context.FamilyMems.Add(firstMember);
                 context.FamilyMems.Add(secondMember);
 
+                if (firstMember.FamilyAddress == false)
+                {
+                    secondMember.FamilyMemStreetName = firstMember.FamilyMemStreetName;
+                    secondMember.FamilyMemStreetNum = firstMember.FamilyMemStreetNum;
+                    secondMember.FamilyMemPlz = firstMember.FamilyMemPlz;
+                    secondMember.FamilyMemOrt = firstMember.FamilyMemOrt;
+                    secondMember.FamilyMemSeit = firstMember.FamilyMemSeit;
+
+                }
 
                 //add banking hostory for family
                 FamilyFinancialSituation financialSituation = AntragstallerUtil.ParseFamilyFinancialSituation(o);//getFamilySituations(o);
@@ -520,7 +528,6 @@ namespace WebApplication1.Controllers
                                 context.Entry(ch).State = System.Data.Entity.EntityState.Added;
                                 context.SaveChanges();
                             }
-
                         }
 
                         JArray jBankverbindungs = (JArray)o["bankverbindung"];
@@ -530,7 +537,7 @@ namespace WebApplication1.Controllers
 
                             foreach (var item in bankverbindungs)
                             {
-                                context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+                                context.Entry(item).State = System.Data.Entity.EntityState.Added;
                                 context.SaveChanges();
                             }
                         }

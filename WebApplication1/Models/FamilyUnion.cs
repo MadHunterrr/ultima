@@ -32,6 +32,7 @@ namespace WebApplication1.Models
         public int FamilyFinacialSituationId { set; get; }
       
         public virtual ICollection<FamilyChildren> FamilyChildrens { set; get; }
+        public virtual ICollection<Bankverbindung> Bankverbindung { get; set; }
         public virtual ICollection<Anfarra> Anfarras { set; get; }
         public virtual ICollection<Anfarrb> Anfarrbs { set; get; }
         public virtual ICollection<Zinsabsicherung> Zinsabsicherungs { set; get; }
@@ -40,6 +41,5 @@ namespace WebApplication1.Models
         public virtual ICollection<Forwarddarlehen> Forwarddarlehens { set; get; }
         public virtual ICollection<VariablesDarlehen> VariableDarlehens { set; get; }
         public virtual ICollection<Annuitatendarlehen> Annuitatendarlehens { set; get; }
-
     }
 }

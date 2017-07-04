@@ -35,5 +35,6 @@ namespace WebApplication1.Models
         public string FamilyMemEmail { set; get; }
         public bool? FamilyMemProf { set; get; }
         public bool? FamilyMemDoctor { set; get; }
+        public bool? FamilyAddress { get; set; }
     }
 }
