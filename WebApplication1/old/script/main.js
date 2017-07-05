@@ -443,6 +443,7 @@
         vm.users = usersSearch.user;
         vm.addBank = addBank;
         vm.deleteBank = deleteBank;
+        vm.customAddress = customAddress;
 
             if(typeof mem_index !=='undefined'){
                 vm.data = mem_index.data;
@@ -466,6 +467,10 @@
                 menuTwoBank: [],
                 childrens: []
             }; 
+        }
+
+        function customAddress() {
+            vm.data.antragsteller2.show_address = true;
         }
 
         setTimeout(function () {
@@ -912,7 +917,8 @@
                 abgerechnet: false,
                 field: '',
                 anfragen: '',
-                storno: false
+                storno: false,
+                items: [],
             });
         }
 
@@ -939,7 +945,7 @@
                 fieldThree: '',
                 fieldFour: '',
                 wiedervorlage: '',
-                betrag: vm.tmpArr.wunsch
+                betrag: vm.tmpArr.wunsch,
             });
             vm.tmpArr.auftragseingang = '';
             vm.tmpArr.wunsch = '';

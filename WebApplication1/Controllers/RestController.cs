@@ -453,8 +453,8 @@ namespace WebApplication1.Controllers
                 union.SecondFamilyMember = secondMember.FamilyMemId;
                 union.FamilyFinacialSituationId = financialSituation.FamilyFinancialSituationId;
 
+                //get list of childrens
                 JArray jChildrens = (JArray)o["childrens"];
-                //get list of  childrens
                 if (jChildrens.Count > 0)
                 {
                     List<FamilyChildren> childrens = AntragstallerUtil.ParseFamilyChildren((JArray)o["childrens"]);//getFamilyChildrens((JArray)o["childrens"]);
@@ -465,7 +465,25 @@ namespace WebApplication1.Controllers
                     }
                     context.FamilyChildrens.AddRange(childrens);
                 }
+
+                // Get list of Bank.
+                JArray jBankverbindungs = (JArray)o["bankverbindung"];
+                if (jBankverbindungs != null)
+                {
+                    if (jBankverbindungs.Count > 0)
+                    {
+                        List<Bankverbindung> bankverbindungs = AntragstallerUtil.ParseBankverbindung((JArray)o["bankverbindung"]);
+
+                        foreach (Bankverbindung item in bankverbindungs)
+                        {
+                            item.FamilyUnion = union;
+                        }
+                        context.Bankverbindungs.AddRange(bankverbindungs);
+                    }
+                }
+
                 context.SaveChanges();
+
                 return Json(union.FirstFamilyMember, JsonRequestBehavior.AllowGet);
             }
             return Json(-1, JsonRequestBehavior.AllowGet);
@@ -473,7 +491,6 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public JsonResult AntragstellerUpdate(string data)
         {
-
             using (ModelContext context = new ModelContext())
             {
                 JObject o = JObject.Parse(data);
@@ -486,6 +503,7 @@ namespace WebApplication1.Controllers
                 {
                     fu = context.FamilyUnions.FirstOrDefault(u => u.SecondFamilyMember == id);
                 }
+
 
                 if (fu != null)
                 {
@@ -501,6 +519,18 @@ namespace WebApplication1.Controllers
                         secondMember.FamilyMemId = fu.SecondFamilyMember;
                         financialSituation.FamilyFinancialSituationId = fu.FamilyFinacialSituationId;
                         List<FamilyChildren> oldChild = fu.FamilyChildrens.ToList();
+                        List<Bankverbindung> oldBank = fu.Bankverbindung.ToList();
+
+                        //copying address information from antragsteller1 to antragsteller2
+                        if (secondMember.FamilyAddress == false)
+                        {
+                            secondMember.FamilyMemStreetName = firstMember.FamilyMemStreetName;
+                            secondMember.FamilyMemStreetNum = firstMember.FamilyMemStreetNum;
+                            secondMember.FamilyMemPlz = firstMember.FamilyMemPlz;
+                            secondMember.FamilyMemOrt = firstMember.FamilyMemOrt;
+                            secondMember.FamilyMemSeit = firstMember.FamilyMemSeit;
+                            secondMember.FamilyAddress = true;
+                        }
 
                         context.Entry(firstMember).State = System.Data.Entity.EntityState.Modified;
                         context.Entry(secondMember).State = System.Data.Entity.EntityState.Modified;
@@ -529,13 +559,20 @@ namespace WebApplication1.Controllers
                             }
                         }
 
+                        foreach (Bankverbindung item in oldBank)
+                        {
+                            context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                            context.SaveChanges();
+                        }
+
                         JArray jBankverbindungs = (JArray)o["bankverbindung"];
                         if (jBankverbindungs.Count > 0)
                         {
                             List<Bankverbindung> bankverbindungs = AntragstallerUtil.ParseBankverbindung((JArray)o["bankverbindung"]);
 
-                            foreach (var item in bankverbindungs)
+                            foreach (Bankverbindung item in bankverbindungs)
                             {
+                                item.FamilyUnion = fu;
                                 context.Entry(item).State = System.Data.Entity.EntityState.Added;
                                 context.SaveChanges();
                             }
@@ -1031,11 +1068,17 @@ namespace WebApplication1.Controllers
                 FamilyFinancialSituation fs = context.FamilyFinancialSituations.FirstOrDefault(f => f.FamilyFinancialSituationId == un.FamilyFinacialSituationId);
 
                 List<FamilyChildren> chilsds = new List<FamilyChildren>();
+                List<Bankverbindung> banks = new List<Bankverbindung>();
 
                 foreach (FamilyChildren ch in un.FamilyChildrens)
                 {
                     ch.FamilyUnion = null;
                     chilsds.Add(ch);
+                }
+                foreach (Bankverbindung item in un.Bankverbindung)
+                {
+                    item.FamilyUnion = null;
+                    banks.Add(item);
                 }
 
                 var result = new
@@ -1088,7 +1131,8 @@ namespace WebApplication1.Controllers
                     },
 
                     childrens = chilsds,
-                    menuBank = fs
+                    menuBank = fs,
+                    bankverbindung = banks
 
                 };
                 return result;

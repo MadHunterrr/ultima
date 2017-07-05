@@ -21,7 +21,7 @@
             </ul>
         </nav>
         <div class="b-header__logo clearfix">
-            <a href="/" class="b-header__logo-link">
+            <a ui-sref="dashboard" class="b-header__logo-link">
                 <img class="b-header__logo-image" src="content/images/logo.png" alt="Ultima">
             </a>
         </div>
@@ -88,8 +88,14 @@
                 </li>
             </ul>
             <div class="b-tabs__container">
-                <div class="b-form__title-dark b-form__title">Anträge/Anfragen</div>
-                <div class="first_form clearfix">
+                <div class="b-form__title-dark b-form__title">
+                    <img class="btn btn__plus btn--light"
+                        ng-click="vm.addA()"
+                        src="content/images/icons/plus.png"
+                        alt="plus_btn">
+                    Anträge/Anfragen
+                </div>
+                <div class="first_form clearfix third_tab_item">
                     <div class="b-form__block">
                         <div class="b-form__group b-form__fields clearfix"
                              ng-repeat="item in vm.anfArrA">
@@ -139,131 +145,82 @@
                                                  class="btn btn__trash btn--light"
                                                  ng-click="vm.removeOneItem(vm.anfArrA, item)">
                                 </span>
-                        </div>
-                        <div class="b-buy__item b-buy__options delete-area">
+                            <div class="b-form__block-select">
+                                <button class="btn btn--light mr-10" ng-click="vm.addB()">Neue Anfrage</button>
+                            </div>
 
-                        </div>
-                    </div>
-
-                </div>
-                <div class="second_form child-form">
-                    <div class="b-form__block">
-                        <button class="btn btn--light mr-10 " id="antrag" ng-click="vm.addA()">Neuer Antrag/Anfrage
-                        </button>
-                        <div class="b-form__group b-form__child b-form__single">
-                            <ul class=" b-form__list b-form__left-list">
-                                <li class="b-form__list-item">
-                                    <div class="b-form__group b-buy b-buy-single">
-                                        <div class="b-buy__item b-buy__name">
-                                    <span class="b-form__input">
-                                        <label for="new_orders">Auftragseingang</label>
-                                        <select id="new_orders" ng-model="vm.tmpArr.auftragseingang">
-                                            <option value="Bitte wählen Sie ..." selected="selected">Bitte wählen Sie ...</option>
+                            <div class="b-form__group anfrage_item" ng-repeat="item in vm.anfArrB">
+                                <div class="b-form__group-child">
+                                    <span class="text-title">{{item.auftragseingang}}</span>
+                                    <span class="text-title">{{item.anfrageabgelehnt}}</span>
+                                    <span class="b-form__radio">
+                                        <input ng-model="item.reason" name="test" value="offen" id="offen" type="radio">
+                                        <label for="offen">offen</label>
+                                    </span>
+                                    <span class="b-form__radio">
+                                        <input ng-model="item.reason" name="test" value="angefragt" id="requested"
+                                            type="radio">
+                                        <label for="requested">angefragt</label>
+                                    </span>
+                                    <span class="b-form__radio">
+                                        <input ng-model="item.reason" name="test" value="genehmigt" id="approved"
+                                            type="radio">
+                                        <label for="approved">genehmigt</label>
+                                    </span>
+                                    <span class="b-form__radio">
+                                        <input ng-model="item.reason" name="test" value="abgelehnt" id="declined"
+                                            type="radio">
+                                        <label for="declined">abgelehnt</label>
+                                    </span>
+                                    <span class="b-form__radio">
+                                        <input ng-model="item.reason" name="test" value="Storno" id="cancellation"
+                                            type="radio">
+                                        <label for="cancellation">Storno</label>
+                                    </span>
+                                </div>
+                                <div class="b-form__group-child">
+                                    <span class="text-title">CTB Braunschweig</span>
+                                    <span class="b-form__input b-form__input-middle">
+                                        <label for="some_date"></label>
+                                        <input ng-model="item.fieldOne" id="some_date" type="text">
+                                    </span>
+                                    <span class="b-form__input b-form__input-middle">
+                                        <label for="some_date"></label>
+                                        <input ng-model="item.fieldTwo" id="some_date" type="text">
+                                    </span>
+                                    <span class="b-form__input b-form__input-middle">
+                                        <label for="some_date"></label>
+                                        <input ng-model="item.fieldThree" id="some_date" type="text">
+                                    </span>
+                                    <span class="b-form__input b-form__input-large">
+                                        <select ng-model="item.fieldFour" id="select">
+                                            <option value="nicht abgelehn" selected="selected">nicht abgelehnt</option>
                                             <option value="Haus">Haus</option>
                                             <option value="Post">Post</option>
                                             <option value="Homepage">Homepage</option>
                                             <option value="Email">Email</option>
                                         </select>
+                                </span>
+                                    <span>Wiedervorlage:</span>
+                                    <span class="b-form__input b-form__input-middle">
+                                        <label for="date_template"></label>
+                                        <input ng-model="item.wiedervorlage" id="date_template" type="text">
                                     </span>
-                                        </div>
-                                        <div class="b-buy__item b-buy__bet">
-                                    <span class="b-form__input b-form__euro">
-                                        <label for="wish">Wunsch</label>
-                                        <input ng-model="vm.tmpArr.wunsch" id="wish" type="text">
-                                    </span>
-                                        </div>
-                                        <div class="b-buy__item b-buy__begin">
+                                </div>
+                                <div class="b-form__group-child b-form__group-child-last">
+                                    <span class="text-title">Betrag:</span>
+                                    <span class="sum">{{item.betrag}} EUR</span>
+                                </div>
+                                <div class="b-buy__item b-buy__options delete-area">
                                     <span class="b-form__input">
-                                        <label for="date">Datum</label>
-                                        <input ng-model="vm.tmpArr.datum" id="date" type="text">
+                                        <label for="date">&nbsp;</label>
+                                                <img src="content/images/icons/trash_basket.png"
+                                                    class="btn btn__trash btn--light"
+                                                    ng-click="vm.removeOneItem(vm.anfArrB, item)">
                                     </span>
-                                        </div>
-                                        <div class="b-buy__item b-buy__options">
-                                        <span class="b-form__input">
-
-                                        </span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="b-form__group" ng-repeat="item in vm.anfArrB">
-                            <div class="b-form__group-child">
-                                <span class="text-title">{{item.auftragseingang}}</span>
-                                <span class="text-title">{{item.anfrageabgelehnt}}</span>
-                                <span class="b-form__radio">
-                                    <input ng-model="item.reason" name="test" value="offen" id="offen" type="radio">
-                                    <label for="offen">offen</label>
-                                </span>
-                                <span class="b-form__radio">
-                                    <input ng-model="item.reason" name="test" value="angefragt" id="requested"
-                                           type="radio">
-                                    <label for="requested">angefragt</label>
-                                </span>
-                                <span class="b-form__radio">
-                                    <input ng-model="item.reason" name="test" value="genehmigt" id="approved"
-                                           type="radio">
-                                    <label for="approved">genehmigt</label>
-                                </span>
-                                <span class="b-form__radio">
-                                    <input ng-model="item.reason" name="test" value="abgelehnt" id="declined"
-                                           type="radio">
-                                    <label for="declined">abgelehnt</label>
-                                </span>
-                                <span class="b-form__radio">
-                                    <input ng-model="item.reason" name="test" value="Storno" id="cancellation"
-                                           type="radio">
-                                    <label for="cancellation">Storno</label>
-                                </span>
+                                </div>
                             </div>
-                            <div class="b-form__group-child">
-                                <span class="text-title">CTB Braunschweig</span>
-                                <span class="b-form__input b-form__input-middle">
-                                    <label for="some_date"></label>
-                                    <input ng-model="item.fieldOne" id="some_date" type="text">
-                                </span>
-                                <span class="b-form__input b-form__input-middle">
-                                    <label for="some_date"></label>
-                                    <input ng-model="item.fieldTwo" id="some_date" type="text">
-                                </span>
-                                <span class="b-form__input b-form__input-middle">
-                                    <label for="some_date"></label>
-                                    <input ng-model="item.fieldThree" id="some_date" type="text">
-                                </span>
-                                <span class="b-form__input b-form__input-large">
-                                    <select ng-model="item.fieldFour" id="select">
-                                        <option value="nicht abgelehn" selected="selected">nicht abgelehnt</option>
-                                        <option value="Haus">Haus</option>
-                                        <option value="Post">Post</option>
-                                        <option value="Homepage">Homepage</option>
-                                        <option value="Email">Email</option>
-                                    </select>
-                               </span>
-                                <span>Wiedervorlage:</span>
-                                <span class="b-form__input b-form__input-middle">
-                                    <label for="date_template"></label>
-                                    <input ng-model="item.wiedervorlage" id="date_template" type="text">
-                                </span>
-                            </div>
-                            <div class="b-form__group-child b-form__group-child-last">
-                                <span class="text-title">Betrag:</span>
-                                <span class="sum">{{item.betrag}} EUR</span>
-                            </div>
-                            <div class="b-buy__item b-buy__options delete-area">
-                                <span class="b-form__input">
-                                    <label for="date">&nbsp;</label>
-                                            <img src="content/images/icons/trash_basket.png"
-                                                 class="btn btn__trash btn--light"
-                                                 ng-click="vm.removeOneItem(vm.anfArrB, item)">
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="b-form__block-select">
-                            <button class="btn btn--light mr-10" ng-click="vm.addB()">Neue Anfrage</button>
-                        </div>
-                    </div>
-                </div>
+<!---------------------------/-->
                 <div class="b-form__title-dark b-form__title">
                     <span>Finanzierungswunsch</span>
                     <div class="b-form__loans">
@@ -1002,6 +959,54 @@
                     </div>
                     <!--end-->
                 </div>
+<!-----------------------------/-->
+                        </div>
+                    </div>
+                </div>
+                <div class="second_form child-form">
+                    <div class="b-form__block">
+                        <!--<button class="btn btn--light mr-10 " id="antrag" ng-click="vm.addA()">Neuer Antrag/Anfrage
+                        </button>-->
+                        <div class="b-form__group b-form__child b-form__single">
+                            <ul class=" b-form__list b-form__left-list">
+                                <li class="b-form__list-item">
+                                    <div class="b-form__group b-buy b-buy-single">
+                                        <div class="b-buy__item b-buy__name">
+                                    <span class="b-form__input">
+                                        <label for="new_orders">Auftragseingang</label>
+                                        <select id="new_orders" ng-model="vm.tmpArr.auftragseingang">
+                                            <option value="Bitte wählen Sie ..." selected="selected">Bitte wählen Sie ...</option>
+                                            <option value="Haus">Haus</option>
+                                            <option value="Post">Post</option>
+                                            <option value="Homepage">Homepage</option>
+                                            <option value="Email">Email</option>
+                                        </select>
+                                    </span>
+                                        </div>
+                                        <div class="b-buy__item b-buy__bet">
+                                    <span class="b-form__input b-form__euro">
+                                        <label for="wish">Wunsch</label>
+                                        <input ng-model="vm.tmpArr.wunsch" id="wish" type="text">
+                                    </span>
+                                        </div>
+                                        <div class="b-buy__item b-buy__begin">
+                                    <span class="b-form__input">
+                                        <label for="date">Datum</label>
+                                        <input ng-model="vm.tmpArr.datum" id="date" type="text">
+                                    </span>
+                                        </div>
+                                        <div class="b-buy__item b-buy__options">
+                                        <span class="b-form__input">
+
+                                        </span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="b-form__title-light b-form__title">Zusatzangaben</div>
             </div>
         </div>

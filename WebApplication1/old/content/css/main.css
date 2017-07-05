@@ -371,7 +371,7 @@ textarea {
     box-sizing: border-box;
     position: relative;
     margin: 0 -4px 4px;
-    border-bottom: 2px solid #fff; }
+    }
 .b-form__group--same-height {
     min-height: 92px; }
 .b-form__group--same-height70 {
@@ -1481,4 +1481,13 @@ input {
     border: 1px solid #ccc;
     padding: 10px 0 10px 10px;
     font-size: 14px;
+}
+
+.third_tab_item {
+    border-bottom: 5px solid #ccc;
+}
+
+.anfrage_item {
+    border: 1px solid rgb(220, 208, 204);
+    margin: 0;
 }
