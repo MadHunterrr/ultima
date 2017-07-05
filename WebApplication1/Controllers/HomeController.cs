@@ -11,11 +11,6 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
-            var ctx = new ModelContext();
-
-            IEnumerable<Bankverbindung> bankverbindung = ctx.Bankverbindungs;
-            ViewBag.Test = bankverbindung;
-
             return View();
         }
 

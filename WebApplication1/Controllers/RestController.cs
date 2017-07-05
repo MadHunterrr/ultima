@@ -584,6 +584,7 @@ namespace WebApplication1.Controllers
             }
             return Json("Updated", JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
         public JsonResult GetFamilyUnionByMember(int id)
         {
             ModelContext context = new ModelContext();
@@ -1133,7 +1134,6 @@ namespace WebApplication1.Controllers
                     childrens = chilsds,
                     menuBank = fs,
                     bankverbindung = banks
-
                 };
                 return result;
             }
