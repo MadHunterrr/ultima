@@ -850,8 +850,8 @@ namespace WebApplication1.Controllers
         /// <returns></returns>
         public FamilyFinancialSituation getFamilySituations(JObject o)
         {
-
             FamilyFinancialSituation fs = new FamilyFinancialSituation();
+
             fs.FamilyFinancialSituationBankSparguthaben = ((JArray)o["menuOneBank"][0]["BankSparguthaben"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationWertpapiereAktien = ((JArray)o["menuOneBank"][1]["WertpapiereAktien"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationBausparvertrag = ((JArray)o["menuOneBank"][2]["Bausparvertrag"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
@@ -871,6 +871,7 @@ namespace WebApplication1.Controllers
             fs.FamilyFinancialSituationRatenkreditLeasing = ((JArray)o["menuTwoBank"][5]["RatenkreditLeasing"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationPrivatesDarlehen = ((JArray)o["menuTwoBank"][6]["PrivatesDarlehen"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationSonstigeVerbindlichkeiten = ((JArray)o["menuTwoBank"][7]["SonstigeVerbindlichkeiten"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
+
             return fs;
         }
         /// <summary>

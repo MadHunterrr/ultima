@@ -12,9 +12,7 @@ namespace WebApplication1.Models
         {
 
         }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int StellPlatzeId { set; get; }
+        
         public string Stellplatz { set; get; }
         public string Carport { set; get; }
         public string Garage { set; get; }
@@ -22,5 +20,10 @@ namespace WebApplication1.Models
         public string Kellergarage { set; get; }
         public string Tiefgaragenstellplatz { set; get; }
         public int? f_id { set; get; }
+        
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int StellPlatzeId { set; get; }
+
     }
 }
