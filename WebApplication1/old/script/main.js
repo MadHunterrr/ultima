@@ -59,11 +59,37 @@
                         }
                     }
                 })
+                .state('fourth', {
+                    url: "/fourth/:id",
+                    templateUrl: 'view/fourth.html',
+                    controller: 'FourthCtrl',
+                    controllerAs: 'vm',
+                    resolve: {
+                        mem_fourth: function ($stateParams, $sessionStorage, request, $state) {
+                            var id = $stateParams.id || parseInt($sessionStorage.memberId);
+                            if (id) {
+                                return request('GET', 'GetKredit?id=' + id);
+                            }
+                        }
+                    }
+                })
                 .state('login', {
                     url: "/login",
                     templateUrl: 'view/login.html',
                     controller: 'LoginCtrl',
                     controllerAs: 'vm'
+                })
+                .state('register', {
+                    url: "/register",
+                    templateUrl: 'view/registration.html',
+                    controller: 'RegisterCtrl',
+                    controllerAs: 'vm',
+                    resolve: {
+                        users: function ($stateParams, $sessionStorage, request) {
+                            // return request('GET', 'AccountManage/ListUser');
+                            return []
+                        }
+                    }
                 })
                 .state('dashboard', {
                     url: "/dashboard",
@@ -85,7 +111,9 @@
         .controller('IndexCtrl', IndexCtrl)
         .controller('SecondCtrl', SecondCtrl)
         .controller('ThirdCtrl', ThirdCtrl)
+        .controller('FourthCtrl', FourthCtrl)
         .controller('LoginCtrl', LoginCtrl)
+        .controller('RegisterCtrl', RegisterCtrl)
         .controller('DashboardCtrl', DashboardCtrl)
 
         .factory('request', request)
@@ -246,7 +274,7 @@
                 name: 'Lebens-/ Rentenversicherung',
                 max: 3,
                 current: 0,
-                id: 'Rentenversicherung',
+                id: 'LebensRentenversicherung',
                 items: []
             },
             {
@@ -391,7 +419,7 @@
                     if (mem_index.data.menuBank.hasOwnProperty(key)) {
                         bankData = {};
                         bankName = key.replace(tableName, '');
-                        console.log(mem_index.data.menuBank[key]);
+                        console.log(eval(mem_index.data.menuBank[key]), bankName);
                         bankData[bankName] = eval(mem_index.data.menuBank[key]);
                         if ((bankIndex = vm.menuBankIdList2.indexOf(bankName)) >= 0) {
                             mem_index.data.menuTwoBank.push(bankData);
@@ -421,13 +449,14 @@
                     var newKey = '';
                     for (var k in item) {
                         newKey = k.replace(childTableName, '').toLowerCase();
+                        if (k === 'FamilyChildrenKindergeId')
+                        result[k] = item[k];
                         result[newKey] = item[k]
                     }
                     console.log(result);
                     return result;
                 })
             }
-            console.log(vm.kinder);
         }
 
 
@@ -447,16 +476,19 @@
 
             if(typeof mem_index !=='undefined'){
                 vm.data = mem_index.data;
-                vm.data.bankverbindung = [
-                    {
-                        kont: '',
-                        iban: '',
-                        bic: '',
-                        blz: '',
-                        cred_inst: '',
+                vm.data.bankverbindung = vm.data.bankverbindung.map(function(value) {
+                    return {
+                        bankverbindungId: value.BankverbindungId,
+                        bic: value.Bic,
+                        blz: value.Blz,
+                        cred_inst: value.Cred_inst,
+                        familyUnion: value.FamilyUnion,
+                        iban: value.Iban,
+                        kont: value.Kont,
+                        num: value.Num,
                     }
-                ];
-                console.log(vm.data);
+                });
+                console.log(vm.data.bankverbindung)
             }else{
              vm.data =   {
                 antragsteller1: {},
@@ -465,7 +497,17 @@
                 },
                 menuOneBank: [],
                 menuTwoBank: [],
-                childrens: []
+                childrens: [],
+                bankverbindung: [{
+                    bankverbindungId: '',
+                    bic: '',
+                    blz: '',
+                    cred_inst: '',
+                    familyUnion: '',
+                    iban: '',
+                    kont: '',
+                    num: '',
+                }]
             }; 
         }
 
@@ -502,7 +544,7 @@
             vm.kinder.push({
                 name: '',
                 geburtsdatum: '',
-                kindergeld: 2,
+                FamilyChildrenKindergeId: 2,
                 unterhaltseinnahmen: 2
             })
         }
@@ -594,6 +636,7 @@
             var data;
             if (typeof parseInt($stateParams.id) == 'number' && $stateParams.id >= 1) {
                 vm.data.id = $stateParams.id;
+                console.log(vm.data)
                 data = JSON.stringify(vm.data);
 
                 $.ajax({
@@ -629,7 +672,7 @@
                 {
                     name: '',
                     geburtsdatum: '',
-                    kindergeld: 2,
+                    FamilyChildrenKindergeId: 2,
                     unterhaltseinnahmen: 2
                 }
             ]
@@ -653,6 +696,28 @@
         vm.removeItem = removeItem;
         vm.usersSearch = usersSearch;
         vm.users = usersSearch.user;
+        vm.addGrundbuchdaten = addGrundbuchdaten;
+        vm.GrundbuchdatenAdded = {
+            state: false,
+            grunduch: '',
+            blatt: ''
+        };
+        vm.addRechte = addRechte;
+        vm.RechteAdded = {
+            state: false,
+            betrag: '',
+            beschreibung: '',
+            anmerkungen: '',
+        };
+        vm.Flurstuck = [{
+            flur: '',
+            flurstuck: '',
+            anteil: '',
+            anteil2: '',
+            desFlurs: '',
+        }];
+        vm.addFlurstuck = addFlurstuck;
+        vm.deleteFlurstuck = deleteFlurstuck;
 
         $scope.modalShown = false;
         $scope.toggleModal = function () {
@@ -663,6 +728,21 @@
             if (!itemIsFilled(data)) {
                 data.items.push({});
             }
+        }
+
+        function addFlurstuck() {
+            vm.Flurstuck.push({});
+        }
+
+        function deleteFlurstuck(index) {
+            vm.Flurstuck.splice(index, 1);
+        }
+
+        function addGrundbuchdaten() {
+            vm.GrundbuchdatenAdded.state = true;
+        }
+        function addRechte() {
+            vm.RechteAdded.state = true;
         }
 
         function itemIsFilled(data) {
@@ -816,18 +896,21 @@
 
             var id = parseInt($sessionStorage.memberId);
             vm.bank.id = $stateParams.id || id;
+            // vm.bank.GrundbuchdatenAdded = vm.GrundbuchdatenAdded;
+            // vm.bank.RechteAdded = vm.RechteAdded;
+            // vm.bank.Flurstuck = vm.Flurstuck;
 
             mem_second.data.status ?
                 post_url = 'http://localhost:28151/Rest/ImmobileUpdate' :
                 post_url = 'http://localhost:28151/Rest/Immobile';
 
+            console.log(vm.bank);
             $.ajax({
                 type: "POST",
                 traditional: true,
                 url: post_url,
                 data: {'data': JSON.stringify(vm.bank)}
             });
-            console.log(vm.bank);
         }
 
 
@@ -893,17 +976,96 @@
         vm.addAnnuitatendarlehen = addAnnuitatendarlehen;
         vm.addZinsabsicherung = addZinsabsicherung;
         vm.addVariablesDarlehen = addVariablesDarlehen;
+        vm.getLabel = getLabel;
+        vm.toggleAnfrage = toggleAnfrage;
+        vm.anfrageIsOpened = true;
+
+        function toggleAnfrage(item) {
+            console.log(item)
+            item.anfrageIsOpened = !item.anfrageIsOpened;
+            vm.anfrageIsOpened = !vm.anfrageIsOpened;
+        }
 
         $scope.modalShown = false;
         $scope.toggleModal = function () {
             $scope.modalShown = !$scope.modalShown;
         };
 
-        function addItem(data) {
+        function addItem(data, text, heh) {
             console.log(data);
-            data.items.push({
-                a: 5
-            });
+            if (!data.items)
+                data.items = [];
+            switch(text) {
+                case 'addAnnuitatendarlehen':
+                    data.items.push({
+                        name: 'Annuitatendarlehen',
+                        darlehensbetrag: '',
+                        zinsbindung: '',
+                        tilgungswunschName: '',
+                        tilgungswunschValue: '',
+                        sondertilgung: '',
+                        bereit: '',
+                    });
+                break;
+                case 'addPrivatdarlehen':
+                    data.items.push({
+                        name: 'addPrivatdarlehen',
+                        darlehensbetrag: '',
+                        laufzeit: '',
+                        bank: '',
+                        kreditbetrag: '',
+                        restchuldversicherung: {
+                            eur: '',
+                            au: '',
+                        }
+                    });
+                break;
+                case 'addVariablesDarlehen':
+                    data.items.push({
+                        name: 'addVariablesDarlehen',
+                        darlehensbetrag: '',
+                        zinsbindung: '',
+                        tilgungswunsch: '',
+                        sondertilgung: '',
+                        auszahlungszeitpunkt: ''
+                    });
+                break;
+                case 'addForwarddarlehen':
+                    data.items.push({
+                        name: 'addForwarddarlehen',
+                        darlehensbetrag: '',
+                        zinsbindung: '',
+                        tilgungswunsch: '',
+                        sondertilgung: '',
+                        auszahlungszeitpunkt: ''
+                    });
+                break;
+                case 'addZinsabsicherung':
+                    data.items.push({
+                        name: 'addZinsabsicherung',
+                        tarif: '',
+                        group1: null,
+                        group2: null,
+                        group3: null,
+                        group4: null,
+                        freiBesparen: '',
+                        abtreten: '',
+                        sondertilgung: '',
+                        auszahlungszeitpunkt: '',
+                        bausparwunschAnpassen: '',
+                        abschlussgebuhr: '',
+                        verrechnung: '',
+                        darlehensbetrag: '',
+                        vertragspartner: '',
+                    });
+                break;
+                case '':
+                    data.items.push(heh);
+                break;
+                default:
+                    return null;
+
+            }
         }
 
         function addA() {
@@ -918,7 +1080,6 @@
                 field: '',
                 anfragen: '',
                 storno: false,
-                items: [],
             });
         }
 
@@ -963,8 +1124,8 @@
             data.items.splice(item, 1);
         }
 
-        function removeOneItem(data, item) {
-            data.splice(item, 1);
+        function removeOneItem(data, index) {
+            data.splice(index, 1);
         }
 
         function submit() {
@@ -1007,7 +1168,8 @@
         }
 
         vm.kfwPushed = [];
-        vm.kfw = mem_third && mem_third.data ? mem_third.data.kfw : [
+        //  mem_third && mem_third.data ? mem_third.data.kfw : 
+        vm.kfw = [
             {
                 name: 'KfW Wohneigentumsprogramm',
                 linkName: 'Selbstgenutztes Eigentum (124)',
@@ -1152,6 +1314,10 @@
         function addZinsabsicherung() {
             vm.Zinsabsicherung.push({
                 tarif: '',
+                group1: null,
+                group2: null,
+                group3: null,
+                group4: null,
                 freiBesparen: '',
                 abtreten: '',
                 sondertilgung: '',
@@ -1162,6 +1328,32 @@
                 darlehensbetrag: '',
                 vertragspartner: '',
             })
+        }
+
+        function checkForNulls(data) {
+            var counter = 0;
+            var index = null;
+            for (var item in data) {
+                if (data[item] !== null) {
+                    counter++;
+                    index = item;
+                }
+            }
+            return {
+                counter,
+                index,
+            }
+        }
+
+        function getLabel(tg) {
+            console.log(tg);
+            var nuls = checkForNulls(tg);
+            if (nuls.counter === 0) {
+                return 'Automatish';
+            } else if (nuls.counter === 1) {
+                return tg[nuls.index];
+            }
+            return 'mehre';
         }
 
         vm.Zinsabsicherung = [];
@@ -1212,6 +1404,10 @@
             document.getElementById("myDropdown").classList.toggle("show");
         }
 
+        function toggleTarifDropdown() {
+            document.getElementById('tarifDropdown').classList.toggle("show");
+        }
+
         window.onclick = function (event) {
             if (!event.target.matches('.dropbtn')) {
 
@@ -1226,6 +1422,59 @@
             }
         }
 
+        vm.hard = [
+            'CTB Bank von Essen GmbH & Co',
+
+            'CTB Braunschweig',
+
+
+            'KB Segeberg',
+
+            'WKG Neumünster e.G.',
+
+            'Oyak Anker Bank',
+
+            'DSK Allkredit',
+
+            'Allgemeine Deutsche Direkt Bank',
+
+            'VVK (Alt)',
+
+            'Service Bank',
+
+            'WKV Bank',
+
+            'Aachener',
+
+            'WKV Bank (alt)',
+
+            'Solitär',
+
+            'Service Bank Kiel',
+
+            'Service Bank Rostock',
+
+            'Badenia',
+
+            'Norisbank AG',
+
+            '-Internet- von Essen KG',
+
+            '-Internet- Service Bank',
+
+            '-Internet- Schweizer',
+        ]
+
+    }
+
+    FourthCtrl.$inject = ['$scope', '$sessionStorage', 'mem_fourth', 'usersSearch', '$stateParams'];
+    function FourthCtrl($scope, $sessionStorage, mem_fourth, usersSearch, $stateParams) {
+        var vm = this;
+        vm.usersSearch = usersSearch;
+        vm.users = usersSearch.user;
+        $scope.toggleModal = function () {
+            $scope.modalShown = !$scope.modalShown;
+        };
     }
 
     LoginCtrl.$inject = ['$scope', '$http'];
@@ -1245,16 +1494,63 @@
         }
     }
 
+    RegisterCtrl.$inject = ['$scope', '$http', 'users'];
+    function RegisterCtrl($scope, $http, users) {
+
+        var vm = this;
+        vm.users = users || [];
+        vm.newUser = {
+            PrimaryRole: 1
+        }
+
+        vm.user = {
+            email: '',
+            password: ''
+        };
+
+        vm.register = register;
+        vm.deleteUser = deleteUser;
+        vm.updateUser = updateUser;
+
+        function register() {
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                data: {data: JSON.stringify(vm.newUser)},
+                url: 'http://localhost:28151/AccountManage/AddUser'
+            });
+        }
+        function deleteUser(BenutzerId) {
+            $.ajax({
+                type: "DELETE",
+                traditional: true,
+                data: {data: JSON.stringify({BenutzerId})},
+                url: 'http://localhost:28151/AccountManage/DeleteUser'
+            });
+        }
+        function updateUser(BenutzerId, NewPassword) {
+            $.ajax({
+                type: "PUT",
+                traditional: true,
+                data: {data: JSON.stringify({BenutzerId: BenutzerId, NewPassword: NewPassword})},
+                url: 'http://localhost:28151/AccountManage/UpdateUser'
+            });
+        }
+    }
+
     DashboardCtrl.$inject = ['$scope', '$http', 'users_data'];
     function DashboardCtrl($scope, $http, users_data) {
 
         var vm = this;
+        vm.partnergeschaft = 0;
+        vm.data = {
+
+        };
 
         $scope.modalShown = false;
         $scope.toggleModal = function () {
             $scope.modalShown = !$scope.modalShown;
         };
-
         var filtered = users_data.map(function(value) {
             value.FamilyMemDate = new Date(value.FamilyMemDate);
             return value;

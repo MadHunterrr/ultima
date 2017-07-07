@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -616,6 +617,8 @@ namespace WebApplication1.Controllers
                 HouseNutzung houseNutzung = ImmobileUtils.ParseHouseHutzung(obj["nutzung"]);// getHouseNutzung(obj["nutzung"]);
                 HouseZusat houseZusat = ImmobileUtils.ParseHouseZusat(obj["zusatzliche"]);// getHouseZusant(obj["zusatzliche"]);
                 StellPlatze platze = ImmobileUtils.ParseStellPlatze((JArray)obj["stellplatze"]);//getStellPlatze((JArray)obj["stellplatze"]);
+                Grundbuchdaten grundbuchdaten = ImmobileUtils.ParseGrundbuchdaten(obj["grundbuchdaten"]);
+                Flurstucke flurstucke = ImmobileUtils.ParseFlurstucke((JArray)obj["flurstucke"]);
 
                 int fu_id = fu.FamilyUnionId;
 
@@ -624,6 +627,8 @@ namespace WebApplication1.Controllers
                 houseNutzung.f_id = fu_id;
                 houseZusat.f_id = fu_id;
                 platze.f_id = fu_id;
+                grundbuchdaten.f_id = fu_id;
+                flurstucke.f_id = fu_id;
 
                 using (ModelContext context = new ModelContext())
                 {
@@ -634,6 +639,10 @@ namespace WebApplication1.Controllers
                     context.HouseNutzung.Add(houseNutzung);
                     context.SaveChanges();
                     context.HouseZusat.Add(houseZusat);
+                    context.SaveChanges();
+                    context.Grundbuchdatens.Add(grundbuchdaten);
+                    context.SaveChanges();
+                    context.Flurstuckes.Add(flurstucke);
                     context.SaveChanges();
 
                 }
@@ -650,16 +659,19 @@ namespace WebApplication1.Controllers
 
             FamilyUnion fu = FindFamilyUnion(id);
 
-
             House house = ImmobileUtils.ParseHouse(obj["basisangaben"]);//getHouse(obj["basisangaben"]);
             HouseNutzung houseNutzung = ImmobileUtils.ParseHouseHutzung(obj["nutzung"]);// getHouseNutzung(obj["nutzung"]);
             HouseZusat houseZusat = ImmobileUtils.ParseHouseZusat(obj["zusatzliche"]);// getHouseZusant(obj["zusatzliche"]);
             StellPlatze platze = ImmobileUtils.ParseStellPlatze((JArray)obj["stellplatze"]);//getStellPlatze((JArray)obj["stellplatze"]);
+            Grundbuchdaten grundbuchdaten = ImmobileUtils.ParseGrundbuchdaten(obj["grundbuchdaten"]);
+            Flurstucke flurstucke = ImmobileUtils.ParseFlurstucke((JArray)obj["flurstucke"]);
 
             house.f_id = fu.FamilyUnionId;
             houseZusat.f_id = fu.FamilyUnionId;
             houseNutzung.f_id = fu.FamilyUnionId;
             platze.f_id = fu.FamilyUnionId;
+            grundbuchdaten.f_id = fu.FamilyUnionId;
+            flurstucke.f_id = fu.FamilyUnionId;
 
             using (ModelContext context = new ModelContext())
             {
@@ -667,15 +679,18 @@ namespace WebApplication1.Controllers
                 houseNutzung.HouseNutzungId = context.HouseNutzung.FirstOrDefault(f => f.f_id == fu.FamilyUnionId).HouseNutzungId;
                 houseZusat.HouseZusatId = context.HouseZusat.FirstOrDefault(f => f.f_id == fu.FamilyUnionId).HouseZusatId;
                 platze.StellPlatzeId = context.StellPlatze.FirstOrDefault(f => f.f_id == fu.FamilyUnionId).StellPlatzeId;
+                grundbuchdaten.GrundbuchdatenId = context.Grundbuchdatens.FirstOrDefault(f => f.f_id == fu.FamilyUnionId).GrundbuchdatenId;
+                flurstucke.FlurstuckeId = context.Flurstuckes.FirstOrDefault(f => f.f_id == fu.FamilyUnionId).FlurstuckeId;
             }
-
 
             using (ModelContext context = new ModelContext())
             {
-                context.Entry(house).State = System.Data.Entity.EntityState.Modified;
-                context.Entry(houseNutzung).State = System.Data.Entity.EntityState.Modified;
-                context.Entry(houseZusat).State = System.Data.Entity.EntityState.Modified;
-                context.Entry(platze).State = System.Data.Entity.EntityState.Modified;
+                context.Entry(house).State = EntityState.Modified;
+                context.Entry(houseNutzung).State = EntityState.Modified;
+                context.Entry(houseZusat).State = EntityState.Modified;
+                context.Entry(platze).State = EntityState.Modified;
+                context.Entry(grundbuchdaten).State = EntityState.Modified;
+                context.Entry(flurstucke).State = EntityState.Modified;
                 context.SaveChanges();
             }
             return Json("Updated", JsonRequestBehavior.AllowGet);
@@ -691,16 +706,22 @@ namespace WebApplication1.Controllers
                     HouseNutzung hn = context.HouseNutzung.FirstOrDefault(n => n.f_id == fu.FamilyUnionId);
                     HouseZusat hu = context.HouseZusat.FirstOrDefault(u => u.f_id == fu.FamilyUnionId);
                     StellPlatze st = context.StellPlatze.FirstOrDefault(s => s.f_id == fu.FamilyUnionId);
+                    Grundbuchdaten gr = context.Grundbuchdatens.FirstOrDefault(g => g.f_id == fu.FamilyUnionId);
+                    Flurstucke fl = context.Flurstuckes.FirstOrDefault(f => f.f_id == fu.FamilyUnionId);
+
                     int iStatus = 1;
-                    if (ho == null && hn == null && hu == null && st == null)
+                    if (ho == null && hn == null && hu == null && st == null && gr == null && fl == null)
                         iStatus = 0;
+
                     var data = new
                     {
                         status = iStatus,
                         basisangaben = ho,
                         nutzung = hn,
                         zusatzliche = hu,
-                        stellplatze = st
+                        stellplatze = st,
+                        grundbuchdaten = gr,
+                        flurstucke = fl
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
@@ -869,13 +890,9 @@ namespace WebApplication1.Controllers
                     child.FamilyChildrenName = (string)jChild["name"];
                 if (jChild["geburtsdatum"] != null)
                     child.FamilyChildrenGeburtsdatum = (string)jChild["geburtsdatum"];
-                if (jChild["kindergeld"] != null)
+                if (jChild["FamilyChildrenKindergeId"] != null)
                 {
-
-                    if (int.TryParse((string)jChild["kindergeld"], out tmp))
-                    {
-                        child.FamilyChildrenKindergeId = tmp;
-                    }
+                    child.FamilyChildrenKindergeId = (string)jChild["FamilyChildrenKindergeId"];
                 }
 
                 if (jChild["unterhaltseinnahmen"] != null)
@@ -1104,8 +1121,8 @@ namespace WebApplication1.Controllers
                         seit = f1.FamilyMemSeit,
                         sex = f1.FamilyMemSex,
                         street_name = f1.FamilyMemStreetName,
-                        street_numb = f1.FamilyMemStreetNum
-
+                        street_numb = f1.FamilyMemStreetNum,
+                        arbeitgeber = f1.FamilyArbeitgeber,
                     },
                     antragsteller2 = new
                     {
@@ -1128,9 +1145,9 @@ namespace WebApplication1.Controllers
                         plz = f2.FamilyMemPlz,
                         seit = f2.FamilyMemSeit,
                         street_name = f2.FamilyMemStreetName,
-                        street_numb = f2.FamilyMemStreetNum
+                        street_numb = f2.FamilyMemStreetNum,
+                        arbeitgeber = f2.FamilyArbeitgeber
                     },
-
                     childrens = chilsds,
                     menuBank = fs,
                     bankverbindung = banks

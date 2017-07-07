@@ -8,7 +8,8 @@ namespace WebApplication1.Utils
 {
     public class AntragstallerUtil
     {
-        public static FamilyMem ParseFamilyMem(JToken token){
+        public static FamilyMem ParseFamilyMem(JToken token)
+        {
             if (token != null)
             {
                 int tmp;
@@ -39,7 +40,6 @@ namespace WebApplication1.Utils
                         familyMember.FamilyMemStreetNum = tmp;
                     }
                 }
-
                 if (token["plz"] != null)
                 {
                     if (int.TryParse((string)token["plz"], out tmp))
@@ -47,7 +47,6 @@ namespace WebApplication1.Utils
                         familyMember.FamilyMemPlz = tmp;
                     }
                 }
-
                 if (token["art"] != null)
                 {
                     if (int.TryParse((string)token["art"], out tmp))
@@ -62,7 +61,6 @@ namespace WebApplication1.Utils
                         familyMember.FamilyMemCountry = tmp;
                     }
                 }
-
                 if (token["sex"] != null)
                 {
                     if (int.TryParse((string)token["sex"], out tmp))
@@ -82,7 +80,6 @@ namespace WebApplication1.Utils
                         familyMember.FamilyMemProf = b;
                     }
                 }
-
                 if (token["famili"] != null)
                 {
                     if (int.TryParse((string)token["famili"], out tmp))
@@ -90,7 +87,6 @@ namespace WebApplication1.Utils
                         familyMember.FamilyMemFamily = tmp;
                     }
                 }
-
                 if (token["email"] != null)
                     familyMember.FamilyMemEmail = (string)token["email"];
                 if (token["dr"] != null)
@@ -116,8 +112,14 @@ namespace WebApplication1.Utils
                         familyMember.FamilyAddress = sa;
                     }
                 }
+                if (token["arbeitgeber"] != null)
+                {
+                    familyMember.FamilyArbeitgeber = (string)token["arbeitgeber"];
+                }
+
                 return familyMember;
             }
+
             return null;
         }
         public static FamilyFinancialSituation ParseFamilyFinancialSituation(JObject o)
@@ -126,7 +128,7 @@ namespace WebApplication1.Utils
             fs.FamilyFinancialSituationBankSparguthaben = ((JArray)o["menuOneBank"][0]["BankSparguthaben"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationWertpapiereAktien = ((JArray)o["menuOneBank"][1]["WertpapiereAktien"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationBausparvertrag = ((JArray)o["menuOneBank"][2]["Bausparvertrag"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
-            fs.FamilyFinancialSituationLebensRentenversicherung = ((JArray)o["menuOneBank"][3]["Rentenversicherung"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
+            fs.FamilyFinancialSituationLebensRentenversicherung = ((JArray)o["menuOneBank"][3]["LebensRentenversicherung"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationSparplane = ((JArray)o["menuOneBank"][4]["Sparplane"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationSonstigesVermogen = ((JArray)o["menuOneBank"][5]["SonstigesVermogen"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationEinkunfteNebentatigkeit = ((JArray)o["menuOneBank"][6]["EinkunfteNebentatigkeit"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
@@ -156,13 +158,9 @@ namespace WebApplication1.Utils
                     child.FamilyChildrenName = (string)jChild["name"];
                 if (jChild["geburtsdatum"] != null)
                     child.FamilyChildrenGeburtsdatum = (string)jChild["geburtsdatum"];
-                if (jChild["kindergeld"] != null)
+                if (jChild["FamilyChildrenKindergeId"] != null)
                 {
-
-                    if (int.TryParse((string)jChild["kindergeld"], out tmp))
-                    {
-                        child.FamilyChildrenKindergeId = tmp;
-                    }
+                    child.FamilyChildrenKindergeId = (string)jChild["FamilyChildrenKindergeId"];
                 }
 
                 if (jChild["unterhaltseinnahmen"] != null)
@@ -187,7 +185,7 @@ namespace WebApplication1.Utils
 
                 if (jBank["kont"] != null)
                 {
-                    bankverbindung.Kont = (int)jBank["kont"];
+                    bankverbindung.Kont = (string)jBank["kont"];
                 }
                 if (jBank["iban"] != null)
                 {
@@ -215,6 +213,6 @@ namespace WebApplication1.Utils
 
             return bankverbindungs;
         }
-            
+
     }
 }

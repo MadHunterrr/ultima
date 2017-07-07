@@ -17,7 +17,7 @@ namespace WebApplication1.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BankverbindungId { get; set; }
-        public int Kont { get; set; }
+        public string Kont { get; set; }
         public string Iban { get; set; }
         public string Bic { get; set; }
         public string Num { get; set; }

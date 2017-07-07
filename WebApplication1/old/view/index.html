@@ -5,6 +5,9 @@
                 <li class="b-header__nav-item">
                     <a ui-sref="dashboard">Übersicht</a>
                 </li>
+                <li class="b-header__nav-item">
+                    <a ui-sref="register">Benutzerverwaltung</a>
+                </li>
             </ul>
         </nav>
         <nav class="b-header__links-nav" role="navigation">
@@ -84,6 +87,7 @@
                 </li>
                 <li class="b-tabs__titles-item b-tabs__home" ui-sref="second({id: vm.params_id})"><span>IMMOBILIE</span></li>
                 <li class="b-tabs__titles-item b-tabs__home-bank" ui-sref="third({id: vm.params_id})"><span>KREDIT-DATEN</span></li>
+                <li class="b-tabs__titles-item b-tabs__home-bank" ui-sref="fourth({id: vm.params_id})"><span>DOKUMENTE</span></li>
             </ul>
             <div class="b-tabs__container">
                 <div class="b-form__title-dark b-form__title">Persönliche Daten</div>
@@ -410,6 +414,12 @@
                                     <input id="netto" type="text" ng-model="vm.data.antragsteller1.netto">
                                 </span>
                                     </div>
+                                <div class="b-form__half-col b-form__half-col--first">
+                                    <span class="b-form__input">
+                                        <label for="arbeitgeber">Arbeitgeber</label>
+                                        <input id="arbeitgeber" type="text" ng-model="vm.data.antragsteller1.arbeitgeber">
+                                    </span>
+                                </div>
                                 </div>
                             </div>
 
@@ -721,6 +731,12 @@
                                     <input id="netto" type="text" ng-model="vm.data.antragsteller2.netto">
                                 </span>
                                     </div>
+                                <div class="b-form__half-col b-form__half-col--first">
+                                    <span class="b-form__input">
+                                        <label for="arbeitgeber">Arbeitgeber</label>
+                                        <input id="arbeitgeber" type="text" ng-model="vm.data.antragsteller2.arbeitgeber">
+                                    </span>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -756,11 +772,11 @@
                             <div class="b-form__child-item">
                                 <h4>Kindergeld?</h4>
                                 <span class="b-form__radio">
-                                    <input ng-model="item.kindergeid" value="1" id="ja2" type="radio">
+                                    <input ng-model="item.FamilyChildrenKindergeId" value="1" id="ja2" type="radio">
                                     <label for="ja2">Ja</label>
                                 </span>
                                 <span class="b-form__radio">
-                                    <input ng-model="item.kindergeid" value="0" id="nein" type="radio">
+                                    <input ng-model="item.FamilyChildrenKindergeId" value="0" id="nein" type="radio">
                                     <label for="nein">Nein</label>
                                 </span>
                             </div>
@@ -1392,11 +1408,11 @@
                         <div class="b-banking__item b-banking__kont">
                             <span class="b-form__input">
                                 <label for="kont">Kontoinhaber</label>
-                                <select id="kont" ng-init="bank.kont = '-1'" ng-model="bank.kont">
-                                    <option value="-1">Bitte wählen Sie ...</option>
-                                    <option value="1">Antragsteller 1</option>
-                                    <option value="2">Antragsteller 2</option>
-                                    <option value="3">beide Antragsteller</option>
+                                <select id="kont" ng-model="bank.kont">
+                                    <option ng-selected="{{bank.kont === -1}}" value="-1">Bitte wählen Sie ...</option>
+                                    <option ng-selected="{{bank.kont === 1}}" value="1">Antragsteller 1</option>
+                                    <option ng-selected="{{bank.kont === 2}}" value="2">Antragsteller 2</option>
+                                    <option ng-selected="{{bank.kont === 3}}" value="3">beide Antragsteller</option>
                                 </select>
                             </span>
                         </div>

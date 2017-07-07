@@ -18,7 +18,7 @@ namespace WebApplication1.Models
         public int FamilyChildrenId { set;get;}
         public string FamilyChildrenName { set; get; }
         public string FamilyChildrenGeburtsdatum { set; get; }
-        public int? FamilyChildrenKindergeId { set; get; }
+        public string FamilyChildrenKindergeId { set; get; }
         public int? FamilyChildrenUnterhaltseinnahmen { set; get; }
         public virtual FamilyUnion FamilyUnion { set; get; }
     }
