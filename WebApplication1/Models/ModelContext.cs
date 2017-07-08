@@ -33,7 +33,8 @@ namespace WebApplication1.Models
         public DbSet<Item> Items { set; get; }
         public DbSet<Bankverbindung> Bankverbindungs { get; set; }
         public DbSet<Benutzer> Benutzers { get; set; }
-        public DbSet<Grundbuchdaten> Grundbuchdatens { get; set; }
-        public DbSet<Flurstucke> Flurstuckes { get; set; }
+        public DbSet<Werbung> Werbungs { get; set; }
+        public DbSet<Kontakt> Kontakts { get; set; }
+        public DbSet<Adressens> Adressen { get; set; }
     }
 }

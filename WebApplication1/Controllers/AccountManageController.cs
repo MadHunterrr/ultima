@@ -1,17 +1,28 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
+using WebApplication1.Models.DeserializeHelpModel.Helpers;
 
 namespace WebApplication1.Controllers
 {
     public class AccountManageController : Controller
     {
+        public JsonResult GetAllUsers()
+        {
+            var context = new ModelContext();
+            var Users = new List<Users>();
+
+            foreach (var item in context.Benutzers)
+            {
+                Users.Add(new Users { Id = item.BenutzerId, Name = item.Email });
+            }
+
+            return Json(Users, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public JsonResult AddUser(string data)
         {
@@ -39,10 +50,8 @@ namespace WebApplication1.Controllers
                 }
                 context.SaveChanges();
             }
-            return Json("Registration successful!", JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
-        //{PrimaryRole: "true", Email: "DimaMorgun97@gmail.com", Password: "qwerty"}
-
         [HttpPost]
         public JsonResult Authentication(string data)
         {
@@ -58,15 +67,13 @@ namespace WebApplication1.Controllers
                         {
                             Session["Role"] = item.PrimaryRole;
                             Session["AuthKey"] = item.AuthKey;
-                            return Json("All matches correct!", JsonRequestBehavior.AllowGet);
+                            return Json(true, JsonRequestBehavior.AllowGet);
                         }
                     }
                 }
             }
             return Json(false, JsonRequestBehavior.AllowGet);
         }
-        //{Email: "DimaMorgun97@gmail.com", Password: "qwerty"}
-
         private string GetMd5Hash(MD5 md5Hash, string input)
         {
             // Convert the input string to a byte array and compute the hash.
@@ -86,7 +93,6 @@ namespace WebApplication1.Controllers
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
-
         public JsonResult GetUser()
         {
             return Json(new object[] { Session["Role"], Session["AuthKey"] }, JsonRequestBehavior.AllowGet);

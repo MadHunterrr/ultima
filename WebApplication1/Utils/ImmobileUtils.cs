@@ -80,10 +80,8 @@ namespace WebApplication1.Utils
                     nutzung.gewerbeflache = res;
                 }
             }
-            if (jNutzung["wohnflache"] != null)
-            {
-                nutzung.wohnflache = jNutzung["wohnflache"].ToString();
-            }
+
+            nutzung.wohnflache = jNutzung["wohnflache"].ToString();
 
             return nutzung;
         }
@@ -117,45 +115,6 @@ namespace WebApplication1.Utils
             stellPletze.Kellergarage = stell[4]["Kellergarage"].ToString().Replace("\r\n", " ").Replace('"', ' ');
             stellPletze.Tiefgaragenstellplatz = stell[5]["Tiefgaragenstellplatz"].ToString().Replace("\r\n", " ").Replace('"', ' ');
             return stellPletze;
-        }
-        public static Grundbuchdaten ParseGrundbuchdaten(JToken jGrundbuchdaten)
-        {
-            Grundbuchdaten grundbuchdaten = new Grundbuchdaten();
-
-            if (jGrundbuchdaten["grundbuch"] != null)
-            {
-                grundbuchdaten.Grundbuch = (string)jGrundbuchdaten["grundbuch"];
-            }
-            if (jGrundbuchdaten["blatt"] != null)
-            {
-                grundbuchdaten.Blatt = (string)jGrundbuchdaten["blatt"];
-            }
-            if (jGrundbuchdaten["betrag"] != null)
-            {
-                grundbuchdaten.Betrag = (string)jGrundbuchdaten["betrag"];
-            }
-            if (jGrundbuchdaten["beschreibung"] != null)
-            {
-                grundbuchdaten.Beschreibung = (string)jGrundbuchdaten["beschreibung"];
-            }
-            if (jGrundbuchdaten["anmerkungen"] != null)
-            {
-                grundbuchdaten.Anmerkungen = (string)jGrundbuchdaten["anmerkungen"];
-            }
-
-            return grundbuchdaten;
-        }
-        public static Flurstucke ParseFlurstucke(JArray flurstuckeObject)
-        {
-            Flurstucke flurstucke = new Flurstucke();
-
-            flurstucke.Flur = flurstuckeObject[0]["flur"].ToString().Replace("\r\n", " ").Replace('"', ' ');
-            flurstucke.Flurstuck = flurstuckeObject[1]["flurstuck"].ToString().Replace("\r\n", " ").Replace('"', ' ');
-            flurstucke.Anteil = flurstuckeObject[1]["anteil"].ToString().Replace("\r\n", " ").Replace('"', ' ');
-            flurstucke.Emp = flurstuckeObject[2]["emp"].ToString().Replace("\r\n", " ").Replace('"', ' ');
-            flurstucke.GroBe = flurstuckeObject[3]["groBe"].ToString().Replace("\r\n", " ").Replace('"', ' ');
-
-            return flurstucke;
-        }
+        } 
     }
 }

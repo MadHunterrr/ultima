@@ -157,6 +157,9 @@ textarea {
 .b-tabs__home-bank::before {
     background: url("../images/icons/home.png") no-repeat; }
 
+.b-tabs__home-doc::before {
+    background: url("../images/icons/doc.png") no-repeat; }
+
 .b-tabs__custom-item {
     padding-top: 10px; }
 .b-tabs__custom-item--left {
@@ -338,7 +341,7 @@ textarea {
     color: #154882;
     display: flex;
     align-items: center;
-    width: 100px;
+    /*width: 100px;*/
 }
 
 .delete-area{
@@ -354,7 +357,7 @@ textarea {
     border: 1px solid #d9d9d7;
     border-bottom: none;
     box-sizing: border-box;
-    margin-bottom: 5px; }
+    margin-bottom: 5px; padding-bottom: 5px;}
 
 .b-form__left-list {
     width: 50%;
@@ -371,7 +374,7 @@ textarea {
     box-sizing: border-box;
     position: relative;
     margin: 0 -4px 4px;
-    border-bottom: 2px solid #fff; }
+    }
 .b-form__group--same-height {
     min-height: 92px; }
 .b-form__group--same-height70 {
@@ -789,12 +792,16 @@ textarea {
 
 .b-banking__item {
     float: left;
-    width: 15%;
+    width: 14%;
     box-sizing: border-box;
     padding: 0 3px; }
 
 .b-banking__iban, .b-banking__kredit {
     width: 20%; }
+.bank-delete {
+    margin-top: 15px;
+    margin-left: 7px;
+}
 
 .block-left {
     float: left;
@@ -1469,5 +1476,130 @@ margin-left: 15px;
 
 input {
     font-size: 12px;
-    padding-bottom: 4px;
+    padding-bottom: 3px;
+}
+
+.bankverbindung {
+    background: #f9faf3;
+    border: 1px solid #ccc;
+    padding: 10px 0 10px 10px;
+    font-size: 14px;
+}
+
+.third_tab_item {
+    border-bottom: 5px solid #ccc;
+}
+
+.anfrage_item {
+    border: 1px solid rgb(220, 208, 204);
+    margin: 0;
+}
+
+.iterate_header {
+    background: url(../images/icons/light_bg.png) repeat-x;
+    border: 1px solid #d0daed;
+    text-shadow: 1px 1px 1px white;
+    color: #000;
+}
+
+.dropdown_bg {
+    background: #ededea;
+}
+
+.documents-list > .item {
+    color: #908a8a;
+    border: 1px solid #000;
+    padding: 10px 15px;
+    font-size: 15px;
+    margin: 20px auto;
+}
+
+.document-input {
+    display: inline-block;
+}
+
+.add-document-button {
+    cursor: pointer;
+}
+
+.no-float {
+    float: none;
+    width: 100%;
+}
+
+.no-float > span {
+    display: inline-block;
+}
+
+.label {
+    margin-top: 20px;
+    color: #908a8a;
+    padding-left: 5px;
+}
+
+.user > .username {
+    color: #908a8a;
+    padding-left: 5px; 
+    margin-right: 40px;
+}
+
+.user > .password-label {
+    color: #908a8a;
+    padding-left: 5px; 
+    margin-right: 20px;
+}
+
+.delete-button {
+    cursor: pointer;
+}
+
+.initial-pass {
+    margin-left: 100px;
+    color: #908a8a;
+}
+
+.group-item {
+    display: block;
+    float: none;
+    margin: 10px;
+}
+
+.group-item > input{
+    display: inline-block;
+    width: auto;
+    margin-top: 0px;
+    height: auto;
+}
+
+.group-item > label{
+    display: inline-block!important;
+    width: auto;    
+    margin-top: -15px;
+}
+
+.arrow {
+    height: 30px;
+    width: 30px;
+    margin-left: -10px;
+    margin-top: -10px;
+    transition: 0.3s ease-in all;
+    cursor: pointer;
+    outline: none;
+    transform: rotate(-90deg)
+}
+
+.arrow.show {
+    transform: rotate(0deg);
+}
+
+
+.weitere span{
+    margin-right: 4%;
+}
+.short_input {
+    width: 100px !important;
+}
+
+.short_span {
+    width: 120px !important;
 }

@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using WebApplication1.Models;
-using System.Web.Script.Serialization;
-
 namespace WebApplication1.Utils
 {
     public class AntragstallerUtil
@@ -127,7 +125,6 @@ namespace WebApplication1.Utils
         public static FamilyFinancialSituation ParseFamilyFinancialSituation(JObject o)
         {
             FamilyFinancialSituation fs = new FamilyFinancialSituation();
-
             fs.FamilyFinancialSituationBankSparguthaben = ((JArray)o["menuOneBank"][0]["BankSparguthaben"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationWertpapiereAktien = ((JArray)o["menuOneBank"][1]["WertpapiereAktien"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationBausparvertrag = ((JArray)o["menuOneBank"][2]["Bausparvertrag"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
@@ -148,12 +145,6 @@ namespace WebApplication1.Utils
             fs.FamilyFinancialSituationPrivatesDarlehen = ((JArray)o["menuTwoBank"][6]["PrivatesDarlehen"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             fs.FamilyFinancialSituationSonstigeVerbindlichkeiten = ((JArray)o["menuTwoBank"][7]["SonstigeVerbindlichkeiten"]).ToString().Replace("\r\n", " ").Replace('"', ' ');
             return fs;
-        }
-        public static FamilyFinancialSituation ParseFamilyFinancialSituationMy(string json)
-        {
-            FamilyFinancialSituation _familyFinancialSituation = new JavaScriptSerializer().Deserialize<FamilyFinancialSituation>(json);
-
-            return _familyFinancialSituation;
         }
         public static List<FamilyChildren> ParseFamilyChildren(JArray jChildrens)
         {

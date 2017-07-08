@@ -101,7 +101,7 @@
                             return $.ajax({
                                 type: "GET",
                                 traditional: true,
-                                url: 'http://localhost:28151/Rest/GetAllMembers'
+                                url: 'http://itls-hh.eu/Rest/GetAllMembers'
                             });
                         }
                     }
@@ -161,7 +161,7 @@
     request.inject = ['$http', '$q'];
     function request($http, $q) {
 
-        var urlServer = 'http://localhost:28151/Rest/';
+        var urlServer = 'http://itls-hh.eu/Rest/';
 
         return request;
 
@@ -625,7 +625,7 @@
             // $http({
             //     type: "POST",
             //     traditional: true,
-            //     url: 'http://localhost:28151/backend/WebApplication1/Rest/Antragsteller',
+            //     url: 'http://itls-hh.eu/backend/WebApplication1/Rest/Antragsteller',
             //     data: {'data': vm.data}
             // }).then(function successCallback(response) {
             //
@@ -642,7 +642,7 @@
                 $.ajax({
                     type: "POST",
                     traditional: true,
-                    url: 'http://localhost:28151/Rest/AntragstellerUpdate',
+                    url: 'http://itls-hh.eu/Rest/AntragstellerUpdate',
                     data: {'data': data}
                 })
             } else {
@@ -650,7 +650,7 @@
                 $.ajax({
                     type: "POST",
                     traditional: true,
-                    url: 'http://localhost:28151/Rest/Antragsteller',
+                    url: 'http://itls-hh.eu/Rest/Antragsteller',
                     data: {'data': data}
                 }).then(function (res) {
                     $state.go('index', {id: res});
@@ -901,8 +901,8 @@
             // vm.bank.Flurstuck = vm.Flurstuck;
 
             mem_second.data.status ?
-                post_url = 'http://localhost:28151/Rest/ImmobileUpdate' :
-                post_url = 'http://localhost:28151/Rest/Immobile';
+                post_url = 'http://itls-hh.eu/Rest/ImmobileUpdate' :
+                post_url = 'http://itls-hh.eu/Rest/Immobile';
 
             console.log(vm.bank);
             $.ajax({
@@ -1143,9 +1143,9 @@
 
             var post_url = '';
             if(mem_third && mem_third.data && mem_third.data.status) {
-                post_url = 'http://localhost:28151/Rest/KreditUpdate';
+                post_url = 'http://itls-hh.eu/Rest/KreditUpdate';
             } else {
-                post_url = 'http://localhost:28151/Rest/Kredit';
+                post_url = 'http://itls-hh.eu/Rest/Kredit';
             }
 
             console.log(vm.data);
@@ -1517,7 +1517,7 @@
                 type: "POST",
                 traditional: true,
                 data: {data: JSON.stringify(vm.newUser)},
-                url: 'http://localhost:28151/AccountManage/AddUser'
+                url: 'http://itls-hh.eu/AccountManage/AddUser'
             });
         }
         function deleteUser(BenutzerId) {
@@ -1525,7 +1525,7 @@
                 type: "DELETE",
                 traditional: true,
                 data: {data: JSON.stringify({BenutzerId})},
-                url: 'http://localhost:28151/AccountManage/DeleteUser'
+                url: 'http://itls-hh.eu/AccountManage/DeleteUser'
             });
         }
         function updateUser(BenutzerId, NewPassword) {
@@ -1533,7 +1533,7 @@
                 type: "PUT",
                 traditional: true,
                 data: {data: JSON.stringify({BenutzerId: BenutzerId, NewPassword: NewPassword})},
-                url: 'http://localhost:28151/AccountManage/UpdateUser'
+                url: 'http://itls-hh.eu/AccountManage/UpdateUser'
             });
         }
     }
