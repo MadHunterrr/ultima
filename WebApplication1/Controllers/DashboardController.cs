@@ -16,7 +16,6 @@ namespace WebApplication1.Controllers
 
             return (Json(Werbung, JsonRequestBehavior.AllowGet));
         }
-
         public JsonResult GetAllKontakts()
         {
             var context = new ModelContext();
@@ -27,9 +26,9 @@ namespace WebApplication1.Controllers
         public JsonResult GetAllAdressens()
         {
             var context = new ModelContext();
-            var Adressens = context.Adressen;
+            var Adressen = context.Adressens;
 
-            return (Json(Adressens, JsonRequestBehavior.AllowGet));
+            return (Json(Adressen, JsonRequestBehavior.AllowGet));
         }
     }
 }

@@ -23,7 +23,14 @@ namespace WebApplication1.Controllers
 
             return Json(Users, JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
+        public JsonResult GetAllUsersF()
+        {
+            var context = new ModelContext();
+            var Users = context.Benutzers;
+
+            return Json(Users, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
         public JsonResult AddUser(string data)
         {
             JObject o = JObject.Parse(data);

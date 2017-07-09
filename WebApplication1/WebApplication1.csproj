@@ -171,7 +171,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Adressens.cs" />
+    <Compile Include="Models\Adressen.cs" />
     <Compile Include="Models\Anfarra.cs" />
     <Compile Include="Models\Anfarrb.cs" />
     <Compile Include="Models\Annuitatendarlehen.cs" />

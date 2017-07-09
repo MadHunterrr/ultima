@@ -49,6 +49,8 @@
                 }
             };
 
+            // data.auth_key = sessionStorage.getItem('user').auth_key;
+
             if (method === 'GET') {
                 config.params = data;
                 config.timeout = 20000;
@@ -57,12 +59,15 @@
                 config.data = data;
             }
 
-            // if ($sessionStorage.auth_key) {
-            //     config.url = url + '?auth_key=' + $sessionStorage.auth_key;
-            // }
-            // else {
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            
+            console.log(user)
+            if (user !== null) {
+                config.url = url + '?auth_key=' + user.auth_key;
+            }
+            else {
                 config.url = url;
-            // }
+            }
 
             // $ionicLoading.show({
             //     templateUrl: 'views/lazyload/lazyload.html'
@@ -118,23 +123,23 @@
 
             if (err.data == null || !err.data.error) {
                 if (err.status === 200) {
-                    window.plugins.toast.show('Server error: ' + err.data, 'long', 'center');
+                    console.log('Server error: ' + err.data, 'long', 'center');
                 }
                 else if (err.status === -1) {
-                    window.plugins.toast.show('Server is not available', 'long', 'center');
+                    console.log('Server is not available', 'long', 'center');
                 }
                 else if (err.status === 0) {
-                    window.plugins.toast.show('There is no Internet connection', 'long', 'center');
+                    console.log('There is no Internet connection', 'long', 'center');
                 }
                 else if (err.status === 500) {
-                    window.plugins.toast.show('Server error: ' + err.status + ' ' + err.data.message, 'long', 'center');
+                    console.log('Server error: ' + err.status + ' ' + err.data.message, 'long', 'center');
                 }
                 else {
-                    window.plugins.toast.show('Server error: ' + err.status + ' ' + err.statusText, 'long', 'center');
+                    console.log('Server error: ' + err.status + ' ' + err.statusText, 'long', 'center');
                 }
                 // console.log('XHR Failed: ' + err.status);
             } else {
-                window.plugins.toast.show(err.data.error, 'long', 'center');
+                console.log(err.data.error, 'long', 'center');
             }
 
 
