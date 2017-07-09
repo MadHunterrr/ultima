@@ -164,12 +164,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707091924038_Test.cs" />
+    <Compile Include="Migrations\201707091924038_Test.Designer.cs">
+      <DependentUpon>201707091924038_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Adressen.cs" />
     <Compile Include="Models\Anfarra.cs" />
@@ -177,6 +183,7 @@
     <Compile Include="Models\Annuitatendarlehen.cs" />
     <Compile Include="Models\Bankverbindung.cs" />
     <Compile Include="Models\Benutzer.cs" />
+    <Compile Include="Models\Datei.cs" />
     <Compile Include="Models\DeserializeHelpModel\Antragsteller\Antragsteller1.cs" />
     <Compile Include="Models\DeserializeHelpModel\Antragsteller\Antragsteller2.cs" />
     <Compile Include="Models\DeserializeHelpModel\Antragsteller\Banks.cs" />
@@ -218,6 +225,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Files\Error.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -277,6 +285,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Views\Bank\" />
     <Folder Include="Views\Dashboard\" />
+    <Folder Include="Views\Document\" />
     <Folder Include="Views\Rest\" />
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +294,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707091924038_Test.resx">
+      <DependentUpon>201707091924038_Test.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

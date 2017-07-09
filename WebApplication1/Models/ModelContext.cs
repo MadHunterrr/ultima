@@ -36,5 +36,6 @@ namespace WebApplication1.Models
         public DbSet<Werbung> Werbungs { get; set; }
         public DbSet<Kontakt> Kontakts { get; set; }
         public DbSet<Adressen> Adressens { get; set; }
+        public DbSet<Datei> Dateis { get; set; }
     }
 }

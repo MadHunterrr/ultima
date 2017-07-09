@@ -14,21 +14,21 @@ namespace WebApplication1.Controllers
             var context = new ModelContext();
             var Werbung = context.Werbungs;
 
-            return (Json(Werbung, JsonRequestBehavior.AllowGet));
+            return Json(Werbung, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllKontakts()
         {
             var context = new ModelContext();
             var Kontakt = context.Kontakts;
 
-            return (Json(Kontakt, JsonRequestBehavior.AllowGet));
+            return Json(Kontakt, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllAdressens()
         {
             var context = new ModelContext();
             var Adressen = context.Adressens;
 
-            return (Json(Adressen, JsonRequestBehavior.AllowGet));
+            return Json(Adressen, JsonRequestBehavior.AllowGet);
         }
     }
 }
