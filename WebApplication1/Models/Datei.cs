@@ -20,5 +20,6 @@ namespace WebApplication1.Models
         public string FileName { get; set; }
         public string LocalFileName { get; set; }
         public int FamilyUnionId { get; set; }
+        public string DownloadLink { get; set; }
     }
 }

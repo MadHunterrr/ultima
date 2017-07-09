@@ -64,6 +64,25 @@ namespace WebApplication1.Controllers
                 return File(Server.MapPath("~/Files/Error.txt"), "Error.txt");
             }
         }
+        [HttpGet]
+        public FileResult DownloadFileByLocalFileName(string name)
+        {
+            var context = new ModelContext();
+            var FileObject = context.Dateis.FirstOrDefault(x => x.LocalFileName == name);
+
+            if (FileObject != null)
+            {
+                var FileName = FileObject.FileName;
+                string FileType = "application";
+                var FilePath = Server.MapPath("~/Files/" + FileObject.LocalFileName);
+
+                return File(FilePath, FileType, FileName);
+            }
+            else
+            {
+                return File(Server.MapPath("~/Files/Error.txt"), "Error.txt");
+            }
+        }
         [HttpPost]
         public JsonResult UploadFile(HttpPostedFileBase upload, int id)
         {
@@ -73,7 +92,13 @@ namespace WebApplication1.Controllers
                 var fileName = System.IO.Path.GetFileName(upload.FileName);
                 var LastFileName = string.Format("{0}{1}", DateTime.Now.Ticks, fileName);
 
-                context.Dateis.Add(new Datei() { FileName = fileName, LocalFileName = LastFileName, FamilyUnionId = id });
+                context.Dateis.Add(new Datei() {
+                    FileName = fileName,
+                    LocalFileName = LastFileName,
+                    FamilyUnionId = id,
+                    //DownloadLink = "http://itls-hh.eu/Document/DownloadFileByLocalFileName?name=" + LastFileName
+                    DownloadLink = "http://localhost:28151/Document/DownloadFileByLocalFileName?name=" + LastFileName
+                });
                 context.SaveChanges();
 
                 upload.SaveAs(Server.MapPath("~/Files/" + LastFileName));
