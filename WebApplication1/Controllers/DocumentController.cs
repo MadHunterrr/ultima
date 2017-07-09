@@ -15,7 +15,7 @@ namespace WebApplication1.Controllers
 
             return Json(Files, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
+        [HttpPost]
         public JsonResult GetFilesById(int id)
         {
             var context = new ModelContext();
@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
 
             return Json(Files, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
+        [HttpPost]
         public JsonResult DeleteFileById(int id)
         {
             var context = new ModelContext();
@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
             }   
         }
-        [HttpGet]
+        [HttpPost]
         public FileResult DownloadFileById(int id)
         {
             var context = new ModelContext();
