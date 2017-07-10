@@ -176,6 +176,7 @@
     <Compile Include="Models\Anfarra.cs" />
     <Compile Include="Models\Anfarrb.cs" />
     <Compile Include="Models\Annuitatendarlehen.cs" />
+    <Compile Include="Models\Banken.cs" />
     <Compile Include="Models\Bankverbindung.cs" />
     <Compile Include="Models\Benutzer.cs" />
     <Compile Include="Models\Datei.cs" />

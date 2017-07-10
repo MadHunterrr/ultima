@@ -23,12 +23,12 @@ namespace WebApplication1.Controllers
 
             return Json(Kontakt, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetAllAdressens()
+        public JsonResult GetAllBanks()
         {
             var context = new ModelContext();
-            var Adressen = context.Adressens;
+            var Banken = context.Bankens;
 
-            return Json(Adressen, JsonRequestBehavior.AllowGet);
+            return Json(Banken, JsonRequestBehavior.AllowGet);
         }
     }
 }

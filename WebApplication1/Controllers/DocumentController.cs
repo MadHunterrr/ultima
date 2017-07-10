@@ -8,6 +8,7 @@ namespace WebApplication1.Controllers
 {
     public class DocumentController : Controller
     {
+        [HttpGet]
         public JsonResult GetAllFiles()
         {
             var context = new ModelContext();
@@ -15,7 +16,7 @@ namespace WebApplication1.Controllers
 
             return Json(Files, JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
+        [HttpGet]
         public JsonResult GetFilesById(int id)
         {
             var context = new ModelContext();
@@ -25,7 +26,7 @@ namespace WebApplication1.Controllers
 
             return Json(Files, JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
+        [HttpDelete]
         public JsonResult DeleteFileById(int id)
         {
             var context = new ModelContext();
@@ -44,25 +45,6 @@ namespace WebApplication1.Controllers
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }   
-        }
-        [HttpPost]
-        public FileResult DownloadFileById(int id)
-        {
-            var context = new ModelContext();
-            var FileObject = context.Dateis.FirstOrDefault(x => x.DateiId == id);
-
-            if (FileObject != null)
-            {
-                var FileName = FileObject.FileName;
-                string FileType = "application";
-                var FilePath = Server.MapPath("~/Files/" + FileObject.LocalFileName);
-
-                return File(FilePath, FileType, FileName);
-            }
-            else
-            {
-                return File(Server.MapPath("~/Files/Error.txt"), "Error.txt");
-            }
         }
         [HttpGet]
         public FileResult DownloadFileByLocalFileName(string name)
@@ -83,7 +65,7 @@ namespace WebApplication1.Controllers
                 return File(Server.MapPath("~/Files/Error.txt"), "Error.txt");
             }
         }
-        [HttpPost]
+        [HttpGet]
         public JsonResult UploadFile(HttpPostedFileBase upload, int id)
         {
             if (upload != null)
@@ -96,8 +78,7 @@ namespace WebApplication1.Controllers
                     FileName = fileName,
                     LocalFileName = LastFileName,
                     FamilyUnionId = id,
-                    //DownloadLink = "http://itls-hh.eu/Document/DownloadFileByLocalFileName?name=" + LastFileName
-                    DownloadLink = "http://localhost:28151/Document/DownloadFileByLocalFileName?name=" + LastFileName
+                    DownloadLink = "http://itls-hh.eu/Document/DownloadFileByLocalFileName?name=" + LastFileName
                 });
                 context.SaveChanges();
 

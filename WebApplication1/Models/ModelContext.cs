@@ -35,7 +35,8 @@ namespace WebApplication1.Models
         public DbSet<Benutzer> Benutzers { get; set; }
         public DbSet<Werbung> Werbungs { get; set; }
         public DbSet<Kontakt> Kontakts { get; set; }
-        public DbSet<Adressen> Adressens { get; set; }
         public DbSet<Datei> Dateis { get; set; }
+        public DbSet<Adressen> Adressens { get; set; }
+        public DbSet<Banken> Bankens { get; set; }
     }
 }
