@@ -30,5 +30,12 @@ namespace WebApplication1.Controllers
 
             return Json(Banken, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult GetAllAdressens()
+        {
+            var context = new ModelContext();
+            var Adressen = context.Adressens;
+
+            return Json(Adressen, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -1,33 +1,79 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="app" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="app" class="no-js"> <!--<![endif]-->
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="content/css/reset.css">
-    <link rel="stylesheet" href="content/css/main.css">
-
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Ultima</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="content/css/reset.css">
+  <link rel="stylesheet" href="content/css/main.css">
+  <link rel="stylesheet" href="https://unpkg.com/angular-toastr/dist/angular-toastr.css" />  
 </head>
-<body ng-app="app" class="clearfix">
-
-    <ui-view></ui-view>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>-->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.4/angular-resource.min.js"></script>-->
-    <script src="script/main.js"></script>
+<body>
 
 
-    <!-- Angular Material Library -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <div ui-view></div>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="https://unpkg.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="app.js"></script>
+  <script src="core/core.module.js"></script>
+  <script src="core/core.config.js"></script>
+  <script src="core/request.js"></script>
+  <script src="core/url.js"></script>
+  <script src="core/blocks/directives/directives.module.js"></script>
+  <script src="core/blocks/filters/filters.module.js"></script>
+  <script src="core/blocks/request/request.module.js"></script>
+  <script src="core/blocks/services/services.module.js"></script>
+
+
+
+
+  <script src="templates/login/login.controller.js"></script>
+  <script src="templates/dashboard/dashboard.controller.js"></script>
+  <script src="templates/dashboard/dashboard.model.js"></script>
+  <script src="templates/antragsteller/antragsteller.controller.js"></script>
+  <script src="templates/antragsteller/antragsteller.model.js"></script>
+  <script src="templates/immobilie/immobilie.controller.js"></script>
+  <script src="templates/immobilie/immobilie.model.js"></script>
+  <script src="templates/kreditdaten/kreditdaten.controller.js"></script>
+  <script src="templates/kreditdaten/kreditdaten.model.js"></script>
+  <script src="templates/dokumente/dokumente.controller.js"></script>
+  <script src="templates/dokumente/dokumente.model.js"></script>
+  <script src="templates/tabs/tabs.controller.js"></script>
+  <script src="templates/registration/registration.controller.js"></script>
+  <script src="templates/header/header.controller.js"></script>
+
+
+
+  <script src="components/antragsteller/antragsteller.directive.js"></script>
+  <script src="components/antragsteller/antragsteller-directive.controller.js"></script>
+  <script src="components/kinder/kinder.directive.js"></script>
+  <script src="components/kinder/kinder.controller.js"></script>
+  <script src="components/basisangaben/basisangaben.directive.js"></script>
+  <script src="components/basisangaben/basisangaben-directive.controller.js"></script>
+  <script src="components/nutzung/nutzung.directive.js"></script>
+  <script src="components/nutzung/nutzung-directive.controller.js"></script>
+  <script src="components/bankverbindung/bankverbindung.directive.js"></script>
+  <script src="components/bankverbindung/bankverbindung.controller.js"></script>
+  <script src="components/weitere-immobilien/weitere-immobilien.directive.js"></script>
+  <script src="components/weitere-immobilien/weitere-immobilien.controller.js"></script>
+  <script src="components/weiteres-darlehen/weiteres-darlehen.directive.js"></script>
+  <script src="components/weiteres-darlehen/weiteres-darlehen.controller.js"></script>
+  <script src="components/antrag/antrag.directive.js"></script>
+  <script src="components/antrag/antrag.controller.js"></script>
+  <script src="components/anfrage/anfrage.directive.js"></script>
+  <script src="components/anfrage/anfrage.controller.js"></script>
+  <script src="components/search/search-directive.controller.js"></script>
+  <script src="components/search/search.directive.js"></script>
+
+
+
+
 </body>
 </html>

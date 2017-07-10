@@ -157,6 +157,9 @@ textarea {
 .b-tabs__home-bank::before {
     background: url("../images/icons/home.png") no-repeat; }
 
+.b-tabs__home-doc::before {
+    background: url("../images/icons/doc.png") no-repeat; }
+
 .b-tabs__custom-item {
     padding-top: 10px; }
 .b-tabs__custom-item--left {
@@ -338,7 +341,7 @@ textarea {
     color: #154882;
     display: flex;
     align-items: center;
-    width: 100px;
+    /*width: 100px;*/
 }
 
 .delete-area{
@@ -354,7 +357,7 @@ textarea {
     border: 1px solid #d9d9d7;
     border-bottom: none;
     box-sizing: border-box;
-    margin-bottom: 5px; }
+    margin-bottom: 5px; padding-bottom: 5px;}
 
 .b-form__left-list {
     width: 50%;
@@ -1587,4 +1590,25 @@ input {
 
 .arrow.show {
     transform: rotate(0deg);
+}
+
+
+.weitere span{
+    margin-right: 4%;
+}
+.short_input {
+    width: 100px !important;
+}
+
+.short_span {
+    width: 120px !important;
+}
+
+.dashboard_list li{
+    padding-left: 16px!important;
+}
+
+
+select.ng-invalid-required.ng-touched {
+    border: 1px solid red;
 }

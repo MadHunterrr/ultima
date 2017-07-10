@@ -1,0 +1,35 @@
+<header class="b-header">
+    <div class="container clearfix">
+        <nav class="b-header__main-nav" role="navigation">
+            <ul class="b-header__nav clearfix">
+                <li class="b-header__nav-item">
+                    <a ui-sref="app.dashboard">Übersicht</a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a ui-sref="app.registration">Benutzerverwaltung</a>
+                </li>
+            </ul>
+        </nav>
+        <nav class="b-header__links-nav" role="navigation">
+            <ul class="b-header__nav clearfix">
+                <li class="b-header__nav-item b-header__links-search">
+                    <a class="search" ng-click='vm.modal.toggleModal()'></a>
+                </li>
+                <li class="b-header__nav-item">
+                    <a href="#">Schließen</a>
+                </li>
+                <li class="b-header__nav-item b-header__links-user" ng-click="vm.logout()">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="b-header__logo clearfix">
+            <a ui-sref="app.dashboard" class="b-header__logo-link">
+                <img class="b-header__logo-image" src="content/images/logo.png" alt="Ultima">
+            </a>
+        </div>
+    </div>
+
+</header>
+<search data-parent="vm.modal"></search>
+<div ui-view></div>

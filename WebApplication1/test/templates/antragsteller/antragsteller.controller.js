@@ -5,56 +5,113 @@
     angular.module('app')
         .controller('AntragstellerController', AntragstellerController);
 
-    AntragstellerController.$inject = ['$scope', 'antragsteller', 'bank_list', 'http', 'url'];
+    AntragstellerController.$inject = ['$scope', '$stateParams', 'antragsteller', 'bank_list', 'http', 'url', 'toastr', 'antrag_data', '$state'];
 
 
-    function AntragstellerController($scope, antragsteller, bank_list, http, url) {
+    function AntragstellerController($scope, $stateParams, antragsteller, bank_list, http, url, toastr, antrag_data, $state) {
         let vm = this;
 
         vm.submit = submit;
         vm.addKinder = addKinder;
         vm.deleteKinder = deleteKinder;
+        vm.deleteBankverbindung = deleteBankverbindung;
+        vm.deleteWis = deleteWis;
         vm.clearKinder = clearKinder;
         vm.addItem = addItem;
         vm.checkMaxInBanks = checkMaxInBanks;
         vm.addBankverbindung = addBankverbindung;
         vm.addWis = addWis;
         vm.clearWis = clearWis;
-
+        vm._deleteBank = deleteItem;
 
         vm.bank_list = bank_list;
-        vm.bank_items_left = [];
-        vm.bank_items_right = [];
-        vm.antragsteller1 = {number: '1'};
-        vm.antragsteller2 = {number: '2'};
-        vm.kinders = [];
-        vm.bankverbindungs = [];
-        vm.wis = []; //weitereImmobilien
+
+
+        if ($stateParams.id) {
+            vm.antragsteller1 = antrag_data.antragstellers[0] || {};
+            vm.antragsteller2 = antrag_data.antragstellers[1] || {};
+            if (antrag_data.data) {
+                vm.kinders = antrag_data.data.kinders || [];
+                vm.bankverbindungs = antrag_data.data.bankverbindungs || [];
+                vm.wis = antrag_data.data.wis || [];
+                vm.bank_items_left = antrag_data.data.bank_items_left || [];
+                vm.bank_items_right = antrag_data.data.bank_items_left || [];
+            } else {
+                vm.bank_items_left = [];
+                vm.bank_items_right = [];
+                vm.kinders = [];
+                vm.bankverbindungs = [];
+                vm.wis = [];
+            }
+
+
+        } else {
+            vm.antragsteller1 = {
+                number: '1',
+                sex: '1',
+            };
+            vm.antragsteller2 = {
+                number: '2',
+                value: '1',
+            };
+            vm.bank_items_left = [];
+            vm.bank_items_right = [];
+            vm.kinders = [];
+            vm.bankverbindungs = [];
+            vm.wis = [];
+        }
 
         function submit() {
-            let banks = {
-                left: vm.bank_items_left,
-                right: vm.bank_items_right
-            };
-            let data = {
-                antragsteller1: vm.antragsteller1,
-                antragsteller2: vm.antragsteller2,
-                kinders: vm.kinders,
-                banks: banks,
-                bankverbindungs: vm.bankverbindungs,
-                wis: vm.wis
-            };
+
+            const requestConfig = {
+                url: null,
+                data: {
+                    kinders: vm.kinders,
+                    bankverbindungs: vm.bankverbindungs,
+                    wis: vm.wis,
+                    banks: [],
+                    antragstellers: [
+                        vm.antragsteller1,
+                        vm.antragsteller2,
+                    ],
+                }
+            }
             const preparedData = JSON.parse(sessionStorage.getItem('entry'));
-            const toSend = {};
-            toSend.entry = preparedData;
-            toSend.antragstellers = [
-                data.antragsteller1,
-                data.antragsteller2,
-            ];
-            toSend.kinders=data.kinders;
-            http.post(url.dashboard.create_angrag, toSend)
+            if ($stateParams.id) {
+                requestConfig.url = url.dashboard.update_angrag;
+                requestConfig.data.entryId = $stateParams.id;
+                requestConfig.data.bank_items_left = vm.bank_items_left;
+                requestConfig.data.bank_items_right = vm.bank_items_right;
+            } else {
+                requestConfig.data.entry = preparedData;
+                requestConfig.url = url.dashboard.create_angrag;
+                vm.bank_items_left.map((value, key) => {
+                    requestConfig.data.banks.push({
+                        entryId: $stateParams.id,
+                        bank_identify: value.identify,
+                        side: 'L',
+                        data: value,
+                    });
+                });
+                vm.bank_items_right.map((value, key) => {
+                    requestConfig.data.banks.push({
+                        entryId: $stateParams.id,
+                        bank_identify: value.identify,
+                        side: 'R',
+                        data: value,
+                    });
+                });
+            }
+            http.post(requestConfig.url, requestConfig.data)
                 .then(function (res) {
-                    console.log(res, 'res');
+                    if (res.status) {
+                        toastr.info('Created successfull');
+                        $state.go('app.tabs.antragsteller', {id: res.id});
+                    } else {
+                        for(var key in res.msg) {
+                            toastr.error(res.msg[key][0], 'Submit failed');
+                        }
+                    }
                 });
         }
 
@@ -76,7 +133,7 @@
             if (item.max > item.current) {
                 item.current++;
                 let tmpItem = {
-                    id: item.id,
+                    identify: item.identify,
                     _delete: deleteItem,
                     side: side
                 };
@@ -90,11 +147,11 @@
 
         function deleteItem(index, side) {
             if (side === 'L') {
-                let item = antragsteller.findElementById(vm.bank_items_left[index].id, 'L', vm.bank_list);
+                let item = antragsteller.findElementById(vm.bank_items_left[index].identify, 'L', vm.bank_list);
                 item.current--;
                 vm.bank_items_left.splice(index, 1)
             } else {
-                let item = antragsteller.findElementById(vm.bank_items_right[index].id, 'R', vm.bank_list);
+                let item = antragsteller.findElementById(vm.bank_items_right[index].identify, 'R', vm.bank_list);
                 item.current--;
                 vm.bank_items_right.splice(index, 1)
             }
@@ -116,12 +173,13 @@
 
         function addWis() {
             vm.wis.push({
-                darlehens: [],
+                darlehens: {},
                 _delete: deleteWis
             });
         }
 
         function deleteWis(index) {
+            console.log(index);
             vm.wis.splice(index, 1);
         }
 

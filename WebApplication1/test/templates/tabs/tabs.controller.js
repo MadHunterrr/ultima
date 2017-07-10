@@ -11,6 +11,7 @@
     function TabsController($scope, $state, $rootScope) {
         var vm = this;
 
+        vm.transactionId = sessionStorage.getItem('transactionId');
         vm.params_id = $state.params.id;
         vm.current_controller = $state.current.controller;
         
