@@ -32,6 +32,9 @@ namespace WebApplication1.Models
         public DbSet<VariablesDarlehen> VariablesDarlehens { set; get; }
         public DbSet<Item> Items { set; get; }
         public DbSet<Bankverbindung> Bankverbindungs { get; set; }
+        // All above will be delete and unuse.
+        public DbSet<Antragsteller> Antragstellers { get; set; }
+        
         public DbSet<Benutzer> Benutzers { get; set; }
         public DbSet<Werbung> Werbungs { get; set; }
         public DbSet<Kontakt> Kontakts { get; set; }
