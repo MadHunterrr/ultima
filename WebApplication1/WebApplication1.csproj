@@ -166,17 +166,13 @@
     <Compile Include="Controllers\AntragstellerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\Hash.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707111331156_Test.cs" />
-    <Compile Include="Migrations\201707111331156_Test.Designer.cs">
-      <DependentUpon>201707111331156_Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Adressen.cs" />
     <Compile Include="Models\Anfarra.cs" />
@@ -187,8 +183,6 @@
     <Compile Include="Models\Bankverbindung.cs" />
     <Compile Include="Models\Benutzer.cs" />
     <Compile Include="Models\Datei.cs" />
-    <Compile Include="Models\DeserializeHelpModel\Antragsteller\AntragstellersRootObject.cs" />
-    <Compile Include="Models\DeserializeHelpModel\Helpers\Users.cs" />
     <Compile Include="Models\FamilyChildren.cs" />
     <Compile Include="Models\FamilyFinancialSituation.cs" />
     <Compile Include="Models\FamilyMem.cs" />
@@ -277,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\DeserializeModel\" />
     <Folder Include="Views\Antragsteller\" />
     <Folder Include="Views\Bank\" />
     <Folder Include="Views\Dashboard\" />
@@ -289,11 +284,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707111331156_Test.resx">
-      <DependentUpon>201707111331156_Test.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

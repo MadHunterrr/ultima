@@ -8,35 +8,21 @@ namespace WebApplication1.Controllers
 {
     public class DocumentController : Controller
     {
-        [HttpGet]
         public JsonResult GetAllFiles()
         {
-            var context = new ModelContext();
-            var Files = context.Dateis;
-
-            return Json(Files, JsonRequestBehavior.AllowGet);
+            return Json(new ModelContext().Dateis, JsonRequestBehavior.AllowGet);
         }
-        [HttpGet]
-        public JsonResult GetFilesById(int id)
+        [HttpPost]
+        public JsonResult DeleteFileById(int Id)
         {
             var context = new ModelContext();
-            var Files = from x in context.Dateis
-                        where x.FamilyUnionId == id
-                        select x;
+            var CurrentFile = context.Dateis.FirstOrDefault(x => x.DateiId == Id);
 
-            return Json(Files, JsonRequestBehavior.AllowGet);
-        }
-        [HttpDelete]
-        public JsonResult DeleteFileById(int id)
-        {
-            var context = new ModelContext();
-            var File = context.Dateis.FirstOrDefault(x => x.DateiId == id);
-
-            if (File != null)
+            if (CurrentFile != null)
             {
-                System.IO.File.Delete(Server.MapPath("~/Files/" + File.LocalFileName));
+                System.IO.File.Delete(Server.MapPath("~/Files/" + CurrentFile.LocalFileName));
 
-                context.Dateis.Remove(File);
+                context.Dateis.Remove(CurrentFile);
                 context.SaveChanges();
 
                 return Json(true, JsonRequestBehavior.AllowGet);
@@ -44,19 +30,18 @@ namespace WebApplication1.Controllers
             else
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
-            }   
+            }
         }
         [HttpGet]
-        public FileResult DownloadFileByLocalFileName(string name)
+        public FileResult DownloadFileByLocalFileName(string Name)
         {
-            var context = new ModelContext();
-            var FileObject = context.Dateis.FirstOrDefault(x => x.LocalFileName == name);
+            var CurrentFile = new ModelContext().Dateis.FirstOrDefault(x => x.LocalFileName == Name);
 
-            if (FileObject != null)
+            if (CurrentFile != null)
             {
-                var FileName = FileObject.FileName;
-                string FileType = "application";
-                var FilePath = Server.MapPath("~/Files/" + FileObject.LocalFileName);
+                var FileName = CurrentFile.FileName;
+                var FileType = "application";
+                var FilePath = Server.MapPath("~/Files/" + CurrentFile.LocalFileName);
 
                 return File(FilePath, FileType, FileName);
             }
@@ -65,24 +50,25 @@ namespace WebApplication1.Controllers
                 return File(Server.MapPath("~/Files/Error.txt"), "Error.txt");
             }
         }
-        [HttpGet]
-        public JsonResult UploadFile(HttpPostedFileBase upload, int id)
+        [HttpPost]
+        public JsonResult UploadFile(HttpPostedFileBase Upload, int Id)
         {
-            if (upload != null)
+            if (Upload != null)
             {
                 var context = new ModelContext();
-                var fileName = System.IO.Path.GetFileName(upload.FileName);
-                var LastFileName = string.Format("{0}{1}", DateTime.Now.Ticks, fileName);
+                var FileName = System.IO.Path.GetFileName(Upload.FileName);
+                var LastFileName = string.Format("{0}{1}", DateTime.Now.Ticks, FileName);
 
-                context.Dateis.Add(new Datei() {
-                    FileName = fileName,
+                context.Dateis.Add(new Datei()
+                {
+                    FileName = FileName,
                     LocalFileName = LastFileName,
-                    FamilyUnionId = id,
+                    EntryId = Id,
                     DownloadLink = "http://itls-hh.eu/Document/DownloadFileByLocalFileName?name=" + LastFileName
                 });
                 context.SaveChanges();
 
-                upload.SaveAs(Server.MapPath("~/Files/" + LastFileName));
+                Upload.SaveAs(Server.MapPath("~/Files/" + LastFileName));
 
                 return Json(true, JsonRequestBehavior.AllowGet);
             }

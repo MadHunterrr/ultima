@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -11,31 +7,19 @@ namespace WebApplication1.Controllers
     {
         public JsonResult GetAllWerbungs()
         {
-            var context = new ModelContext();
-            var Werbung = context.Werbungs;
-
-            return Json(Werbung, JsonRequestBehavior.AllowGet);
+            return Json(new ModelContext().Werbungs, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllKontakts()
         {
-            var context = new ModelContext();
-            var Kontakt = context.Kontakts;
-
-            return Json(Kontakt, JsonRequestBehavior.AllowGet);
+            return Json(new ModelContext().Kontakts, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllBanks()
         {
-            var context = new ModelContext();
-            var Banken = context.Bankens;
-
-            return Json(Banken, JsonRequestBehavior.AllowGet);
+            return Json(new ModelContext().Bankens, JsonRequestBehavior.AllowGet);
         }
         public JsonResult GetAllAdressens()
         {
-            var context = new ModelContext();
-            var Adressen = context.Adressens;
-
-            return Json(Adressen, JsonRequestBehavior.AllowGet);
+            return Json(new ModelContext().Adressens, JsonRequestBehavior.AllowGet);
         }
     }
 }

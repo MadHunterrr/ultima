@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models
 {
@@ -15,11 +10,10 @@ namespace WebApplication1.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DateiId { get; set; }
         public string FileName { get; set; }
         public string LocalFileName { get; set; }
-        public int FamilyUnionId { get; set; }
         public string DownloadLink { get; set; }
+        public int EntryId { get; set; }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Models
 {
@@ -15,7 +10,6 @@ namespace WebApplication1.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BenutzerId { get; set; }
         public long AuthKey { get; set; }
         public byte PrimaryRole { get; set; }
