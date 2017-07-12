@@ -1,5 +1,73 @@
 {
- 
+  "wofur": "Neubau (eigenes Bauvorhaben)",
+  "basisangaben": {
+    "strabe": "qsd",
+    "nr": "2",
+    "plz": "1",
+    "ort": "2",
+    "art": "Eigentumswohnung",
+    "grundstucksgrobe": "3",
+    "einliegerwonhnung": "0",
+    "baujahr": "3",
+    "anzahl": "3",
+    "bauweise": "",
+    "fertighaus": "1",
+    "keller": "Teilunterkellert",
+    "dachgeschoss": "Voll ausgebaut"
+  },
+  "nutzung": {
+    "gesamte": "32",
+    "wie": "Eigengenutzt",
+    "gewerbeflache": "1"
+  },
+  "zusatzliche": {
+    "erbbaurecht": "1",
+    "wurde": "0"
+  },
+  "StellplatzeList": [
+    {
+      "name": "Stellplatz",
+      "current": 0,
+      "id": "Stellplatz",
+      "max": 100,
+      "vermietet": 0
+    },
+    {
+      "name": "Carport",
+      "current": 0,
+      "id": "Carport",
+      "max": 100,
+      "vermietet": 0
+    },
+    {
+      "name": "Garage",
+      "current": 0,
+      "id": "Garage",
+      "max": 100,
+      "vermietet": 0
+    },
+    {
+      "name": "Doppelgarage",
+      "current": 0,
+      "id": "Doppelgarage",
+      "max": 100,
+      "vermietet": 0
+    },
+    {
+      "name": "Kellergarage",
+      "current": 0,
+      "id": "Kellergarage",
+      "max": 100,
+      "vermietet": 0
+    },
+    {
+      "name": "Tiefgaragenstellplatz",
+      "current": 0,
+      "id": "Tiefgaragenstellplatz",
+      "max": 100,
+      "vermietet": 0
+    }
+  ],
   "Grundbuchdaten": {
     "isOpened": true,
     "grunduch": "34",

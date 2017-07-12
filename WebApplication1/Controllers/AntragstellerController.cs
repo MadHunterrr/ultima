@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        //--------------code----------------//
+        //--------------second page(immobile)----------------//
         [HttpPost]
         public JsonResult BasisangabenUpdate(string Data)
         {
