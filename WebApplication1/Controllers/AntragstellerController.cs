@@ -98,11 +98,38 @@ namespace WebApplication1.Controllers
                 {
                     Context.Stellplatzes.Remove(item);
                 }
-            }
-            
+            }            
             foreach(var item in DeserializeStellplatze)
             {
                 Context.Stellplatzes.Add(item);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult FlurstuckUpdate(string Data)
+        {
+            var DeserializeFlurstuck = new JavaScriptSerializer().Deserialize<List<Flurstucke>>(Data);
+            var Context = new ModelContext();
+            var CurrentFlurstuckes = new List<Flurstucke>();
+
+            foreach (var item in Context.Flurstuckes)
+            {
+                if (item.Entry == DeserializeFlurstuck[0].Entry)
+                {
+                    CurrentFlurstuckes.Add(item);
+                }
+            }
+            if (CurrentFlurstuckes.Count != 0)
+            {
+                foreach (var item in Context.Flurstuckes)
+                {
+                    Context.Flurstuckes.Remove(item);
+                }
+            }
+            foreach (var item in DeserializeFlurstuck)
+            {
+                Context.Flurstuckes.Add(item);
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);

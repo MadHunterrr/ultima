@@ -46,5 +46,6 @@ namespace WebApplication1.Models
         //-----------------
         public DbSet<Basisangaben> Basisangabens { get; set; }
         public DbSet<Stellplatze> Stellplatzes { get; set; }
+        public DbSet<Flurstucke> Flurstuckes { get; set; }
     }
 }

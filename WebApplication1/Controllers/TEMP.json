@@ -1,16 +1,30 @@
 {
-    "wofur": "Neubau (eigenes Bauvorhaben)",
-    "strabe": "2",
-    "nr": "1",
-    "plz": "2",
-    "ort": "2",
-    "art": "Reihenhaus",
-    "grundstucksgrobe": "2",
-    "einliegerwonhnung": "0",
-  "baujahr": "2",
-    "anzahl": "2",
-    "bauweise": "andere",
-    "fertighaus": "1",
-    "keller": "Nicht unterkellert",
-    "dachgeschoss": "Voll ausgebaut"
+ 
+  "Grundbuchdaten": {
+    "isOpened": true,
+    "grunduch": "34",
+    "blatt": "5",
+    "Flurstuck": [
+      {
+        "flur": "wer",
+        "flurstuck": "werqwe",
+        "anteil": "werqwe",
+        "anteil2": "weqfqwe",
+        "desFlurs": "qwerqwe"
+      },
+      {
+        "flur": "wer",
+        "flurstuck": "werwer",
+        "anteil": "qwerqw",
+        "anteil2": "erqwer",
+        "desFlurs": "qwer"
+      }
+    ]
+  },
+  "Rechte": {
+    "isOpened": false,
+    "betrag": "",
+    "beschreibung": "",
+    "anmerkungen": "erwerwe"
   }
+}

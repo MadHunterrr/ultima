@@ -166,10 +166,12 @@
     <Compile Include="Controllers\AntragstellerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\Flurstuck.cs" />
     <Compile Include="Controllers\Hash.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RestController.cs" />
+    <Compile Include="Controllers\Stellplatze.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,7 +196,6 @@
     <Compile Include="Models\HouseZusat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\Key.cs" />
     <Compile Include="Models\Kontakt.cs" />
     <Compile Include="Models\Kwf.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -314,7 +315,6 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties Controllers_4TEMP_1json__JSONSchema="http://json.schemastore.org/geojson" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
