@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WebApplication1.Models;
@@ -52,6 +53,57 @@ namespace WebApplication1.Controllers
         public JsonResult BankverbindungUpdate(string Data)
         {
 
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //--------------code----------------//
+        [HttpPost]
+        public JsonResult BasisangabenUpdate(string Data)
+        {
+            var DeserializeBasisangaben = new JavaScriptSerializer().Deserialize<Basisangaben>(Data);
+            var Context = new ModelContext();
+            var OldBasisangaben = Context.Basisangabens.FirstOrDefault(x => x.Entry == DeserializeBasisangaben.Entry);
+
+            if (OldBasisangaben != null)
+            {
+                Context.Basisangabens.Remove(OldBasisangaben);
+                Context.Basisangabens.Add(DeserializeBasisangaben);
+            }
+
+            else
+                Context.Basisangabens.Add(DeserializeBasisangaben);
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult StellplatzeUpdate(string Data)
+        {
+            var DeserializeStellplatze = new JavaScriptSerializer().Deserialize<List<Stellplatze>>(Data);
+            var Context = new ModelContext();
+            var CurrentStellplatze = new List<Stellplatze>();
+
+            foreach(var item in Context.Stellplatzes)
+            {
+                if(item.Entry== DeserializeStellplatze[0].Entry)
+                {
+                    CurrentStellplatze.Add(item);
+                }
+            }
+            if (CurrentStellplatze.Count != 0)
+            {
+                foreach (var item in Context.Stellplatzes)
+                {
+                    Context.Stellplatzes.Remove(item);
+                }
+            }
+            
+            foreach(var item in DeserializeStellplatze)
+            {
+                Context.Stellplatzes.Add(item);
+            }
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }

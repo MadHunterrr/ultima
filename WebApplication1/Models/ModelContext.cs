@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using WebApplication1.Controllers;
 
 namespace WebApplication1.Models
 {
@@ -41,5 +42,9 @@ namespace WebApplication1.Models
         public DbSet<Datei> Dateis { get; set; }
         public DbSet<Adressen> Adressens { get; set; }
         public DbSet<Banken> Bankens { get; set; }
+
+        //-----------------
+        public DbSet<Basisangaben> Basisangabens { get; set; }
+        public DbSet<Stellplatze> Stellplatzes { get; set; }
     }
 }

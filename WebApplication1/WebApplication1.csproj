@@ -181,6 +181,7 @@
     <Compile Include="Models\Antragsteller.cs" />
     <Compile Include="Models\Banken.cs" />
     <Compile Include="Models\Bankverbindung.cs" />
+    <Compile Include="Models\Basisangaben.cs" />
     <Compile Include="Models\Benutzer.cs" />
     <Compile Include="Models\Datei.cs" />
     <Compile Include="Models\FamilyChildren.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Models\HouseZusat.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Key.cs" />
     <Compile Include="Models\Kontakt.cs" />
     <Compile Include="Models\Kwf.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -219,6 +221,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Controllers\TEMP.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -311,6 +314,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties Controllers_4TEMP_1json__JSONSchema="http://json.schemastore.org/geojson" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
