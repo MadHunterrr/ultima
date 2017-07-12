@@ -152,3 +152,4 @@ C:\Users\Public\Documents\repositories\Ultima\WebApplication1\bin\ru\Microsoft.O
 C:\Users\Public\Documents\repositories\Ultima\WebApplication1\bin\ru\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 C:\Users\Public\Documents\repositories\Ultima\WebApplication1\obj\Debug\WebApplication1.dll
 C:\Users\Public\Documents\repositories\Ultima\WebApplication1\obj\Debug\WebApplication1.pdb
+C:\Users\Public\Documents\repositories\ultima\WebApplication1\obj\Debug\WebApplication1.csprojResolveAssemblyReference.cache
